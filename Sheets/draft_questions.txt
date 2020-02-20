@@ -1,0 +1,49 @@
+What is the primary task the project
+needs to perform?
+
+Are there any secondary tasks the project should perform?
+for example information on hover of mouse?
+Expected grade depending on code tasks completed?
+
+Give us the priority of the secondary tasks, Medium, Low?
+
+What elements of the DCR graph does the project need to draw
+Should we copy the DCRGraph simulation site?
+
+What kind of input will we get?
+where do we get the input from?
+
+What kind of output do you expect?
+File type PDF? PNG?
+
+What interface is the user expected to use? Interactive? just in the command line? File?
+
+What programming language are we expected to use?
+On what devices/OS will the program run?
+
+Will you be the only user of our system?
+Do we expect different user categories? Admins, SuperUsers, Users?
+
+Should the system be protected from making errors?
+If not should the system ignore errors and move on, 
+report them or stop working(Error handling)?
+
+What kind of documentation is required?
+
+Are there any perfomance characteristics we should 
+take into consideration?
+Proccess time/graph(normal sized graph)
+
+Maximum number of events in a graph?
+Maximum number of graphs that can be sent as input
+
+Must access to data or the system be controlled?
+
+If there are some test cases we can work on/optimize our project on?
+
+Is the product allowed tp be dependent on any third-party libraries?
+
+Under what license should the product be released?
+
+Do we have any constraints on the machine that the program is gonna be executed on?
+
