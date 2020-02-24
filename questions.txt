@@ -1,7 +1,0 @@
-Details about project 1:
-Does it have to be interactive or just a simple graph?
-Any requirements for programming language or can we choose freely?
-
-Details about project 3:
-Engine requirements.
-Should it be visualized?
