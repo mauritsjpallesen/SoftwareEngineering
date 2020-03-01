@@ -1,0 +1,44 @@
+After the question session with the client we have also defined a number of 
+non functional requirements for our project which are listed in the table 
+bellow. The complete questionnaire can be found in the appendix.
+
+Usability 
+The events and relations should be visualized using vector graphics 
+for easy scaling.
+The main use case would be visualization for scientific papers and the 
+activities should have enough space inside of them for 50 readable characters.
+Interface 
+The program must be able to work with an input of either a language based
+input or .csv format with defined markings and events.
+The program is expected to be used only via console and the input file given 
+as an argument.
+The output format would preferably be an option selected during the execution 
+and must at least support a scalable pdf with no margins.
+Only one kind of user is required for this program and that user is expected 
+to use the command-line as interface.
+Reliability 
+Regarding Robustness the program is expected to not crash. If wrong input 
+file/format or grammatical errors occur the program should produce an 
+appropriate warning, reject the current file and request a valid one.
+Regarding safety no passwords or other means of security are needed
+Performance 
+Our program must be able immediately respond to the visualization of a 
+single graph with up to 100 events
+Supportability 
+A user guide must be provided about what and how is called and correct 
+input formats.Furthermore documentation for the internal workings of the 
+program along with javadocs.
+Implementation T
+he program is allowed to be dependent on third-party libraries and it is 
+expected to be working in Macintosh, Windows and Linux machines with 
+reasonable specs. No mobile support is required.
+Legal 
+Project will be released under the LGPL3.0 license, meaning that it is going
+to be open source and if somebody wants to make changes they are required to 
+make those changes open source as well
+
+The client did not impose any constraints but it was mentioned that it would 
+be appreciated if the project could be implemented in Java in order to support
+better compatibility for future uses.
+
+
