@@ -1,4 +1,4 @@
-package dk.ku.di.oodcr;
+package oodcr;
 
 import java.util.HashMap;
 
@@ -60,7 +60,7 @@ public class DCRGraph {
 		if (! events.containsKey(trg))
 			return;
 		
-		events.get(src).respones.add(events.get(trg));		
+		events.get(src).responses.add(events.get(trg));
 	}
 	
 	

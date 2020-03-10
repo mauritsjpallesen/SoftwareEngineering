@@ -1,27 +1,28 @@
-package dk.ku.di.oodcr;
+package oodcr;
 
 import java.util.HashSet;
+import java.util.UUID;
 
 public class Event {
 	
-	
+	public UUID id;
 	public String name;
 	public String label;
 	
 	public Marking marking = new Marking(false, true, false);
 	
 	public HashSet<Event> conditions = new HashSet<>();
-	public HashSet<Event> respones = new HashSet<>();
+	public HashSet<Event> responses = new HashSet<>();
 	public HashSet<Event> milestones = new HashSet<>();
 	public HashSet<Event> includes = new HashSet<>();
 	public HashSet<Event> excludes = new HashSet<>();
 
 	public Event(String n, String l)
 	{
+		id = UUID.randomUUID();
 		name = n;
 		label = l;
-	}	
-	
+	}
 	
 	public Event(String n)
 	{
@@ -52,7 +53,7 @@ public class Event {
 		marking.executed = true;
 		marking.pending = false;
 		
-		for (Event e: respones)
+		for (Event e: responses)
 			e.marking.pending = true;
 		
 		for (Event e: excludes)
