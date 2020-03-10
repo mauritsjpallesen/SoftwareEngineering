@@ -1,4 +1,4 @@
-package dk.ku.di.oodcr;
+package oodcr;
 
 import static org.junit.jupiter.api.Assertions.*;
 
