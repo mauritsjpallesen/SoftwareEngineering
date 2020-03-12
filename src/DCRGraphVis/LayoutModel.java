@@ -14,7 +14,7 @@ public class LayoutModel implements LayoutModel2D<Event> {
     private HashMap<Event, Point2D> os = new HashMap<Event, Point2D>();
 
     public LayoutModel(int numberOfEvents) {
-        drawingArea = new Box2D(numberOfEvents * 100, numberOfEvents * 100);
+        drawingArea = new Box2D(numberOfEvents * (Node.Width + 50), numberOfEvents * (Node.Height + 50));
     }
 
     @Override
