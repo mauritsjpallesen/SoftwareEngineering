@@ -15,6 +15,9 @@ public class InputFileParser {
         var e2 = new Event("e2 name", "e2 label");
         var e3 = new Event("e3 name", "e3 label");
         var e4 = new Event("e4 name", "e4 label");
+        var e5 = new Event("e5 name", "e5 label");
+        var e6 = new Event("e6 name", "e6 label");
+        var e7 = new Event("e7 name", "e7 label");
 
         e2.marking.included = false;
         e2.marking.pending = true;
@@ -22,14 +25,21 @@ public class InputFileParser {
 
         e1.includes.add(e2);
         e2.milestones.add(e4);
+        e2.includes.add(e5);
         e3.excludes.add(e4);
         e3.excludes.add(e1);
         e4.responses.add(e1);
+        e5.includes.add(e6);
+        e6.milestones.add(e7);
+        e7.excludes.add(e1);
 
         g.events.put(e1.name, e1);
         g.events.put(e2.name, e2);
         g.events.put(e3.name, e3);
         g.events.put(e4.name, e4);
+        g.events.put(e5.name, e5);
+        g.events.put(e6.name, e6);
+        g.events.put(e7.name, e7);
 
         return g;
     }
