@@ -51,16 +51,13 @@ public class Visualizer {
         var boundingBox = boundingBox(nodes);
         var borderWidth = 15;
 
-        var image = new BufferedImage(boundingBox.width + 2 * borderWidth, boundingBox.height + 2 * borderWidth, BufferedImage.TYPE_INT_RGB);
+        var image = new BufferedImage(boundingBox.x + boundingBox.width + 2 * borderWidth, boundingBox.y + boundingBox.height + 3 * borderWidth, BufferedImage.TYPE_INT_RGB);
         var g2d = image.createGraphics();
         g2d.setColor(Color.white);
-        g2d.fillRect(0, 0, boundingBox.width + 2 * borderWidth, boundingBox.height + 2 * borderWidth);
+        g2d.fillRect(0, 0, boundingBox.x + boundingBox.width + 2 * borderWidth, boundingBox.y + boundingBox.height + 3 * borderWidth);
 
-        for (Node node: nodes) {
-            node.X = node.X + borderWidth;
-            node.Y = node.Y + borderWidth;
+        for (Node node: nodes)
             drawNode(g2d, node);
-        }
 
         for (Node e: nodes) {
             for (Node n: nodes) {
@@ -81,10 +78,11 @@ public class Visualizer {
             }
         }
 
+        var croppedImage = image.getSubimage(Math.max(boundingBox.x - borderWidth, 0), Math.max(boundingBox.y - borderWidth, 0), boundingBox.width + 2 * borderWidth, boundingBox.height + 2 * borderWidth);
         g2d.dispose();
 
         var imageFile = new File(fileName);
-        ImageIO.write(image, imageType.toString(), imageFile);
+        ImageIO.write(croppedImage, imageType.toString(), imageFile);
     }
 
     public void drawNode(Graphics2D g, Node node) {
@@ -226,7 +224,8 @@ public class Visualizer {
                 maxY = node.Y + Node.Height;
         }
 
-        return new Rectangle(minX, minY, maxX, maxY);
+
+        return new Rectangle(minX, minY, maxX - minX, maxY - minY);
     }
 
     private void setDrawColorAccordingToRelationshipType(Graphics2D g, RelationType relationshipType) {
