@@ -15,7 +15,8 @@ public class Main {
         var parser = new InputFileParser();
         var dcrGraph = parser.parse("");
 
-        var visualizer = new Visualizer(new LayoutAlgorithm());
+        var layoutAlg = new LayoutAlgorithm();
+        var visualizer = new Visualizer(layoutAlg);
 
         try {
             visualizer.GenerateImage(dcrGraph, "testImage.png", ImageType.PNG);

@@ -47,7 +47,7 @@ public class Visualizer {
         if (fileName == null)
             throw new NullPointerException("No filename given");
 
-        var nodes = layoutAlgorithm.generateNodes(graph);
+        var nodes = layoutAlgorithm.generateWithJGraphT(graph);
         var boundingBox = boundingBox(nodes);
         var borderWidth = 15;
 

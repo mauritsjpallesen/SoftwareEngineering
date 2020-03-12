@@ -28,7 +28,11 @@ public class Event {
 	{
 		this(n, n);
 	}	
-	
+
+	public int getRelationsCount() {
+		return conditions.size() + responses.size() + milestones.size() + includes.size() + excludes.size();
+	}
+
 	public Boolean enabled()
 	{
 		if (!marking.included)
