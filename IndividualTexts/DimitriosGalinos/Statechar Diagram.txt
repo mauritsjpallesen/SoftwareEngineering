@@ -1,0 +1,17 @@
+The statechart diagram for the event class is a diagram which accurately 
+depicts all the possible states the event class can be found in and how 
+exactly we can get in those states. The three variables in an event class 
+are Pending/Not Pending, Included/Not Included and Executed/Not Executed. 
+So with some simple math we have $2^3=8$ different possible states. 
+We have decided to put as starting point the default state of a class when 
+it is first created, which is Not Executed, Included and Not Pending. 
+Finally we have come up with our own notation in order to properly describe 
+what happens to an event when it changes state. Firstly execute() means our 
+event was executed. Other() means another event was executed that had on 
+it's list our event. When another event is executed it can have our event in 
+it's r=response list and/or in either the e=excluded list or i=included 
+list (but not both of these last two). Furthermore we have have added in our 
+notation the question mark ! which denotes the absence of our event from an 
+other's event particular list. For example other(!r, e) would mean that 
+another event was executed which had our event on its excluded list and did 
+not have our event in its response list.
