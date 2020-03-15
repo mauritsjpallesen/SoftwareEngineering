@@ -27,10 +27,6 @@ public class Event {
 	public Event(String n)
 	{
 		this(n, n);
-	}	
-
-	public int getRelationsCount() {
-		return conditions.size() + responses.size() + milestones.size() + includes.size() + excludes.size();
 	}
 
 	public Boolean enabled()
@@ -69,11 +65,8 @@ public class Event {
 		return;		
 	}
 	
-	
 	public boolean isAccepting()
 	{
-		return (!(marking.pending && marking.included));		
+		return (!(marking.pending && marking.included));
 	}
-	
-	
 }

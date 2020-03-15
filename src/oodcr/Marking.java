@@ -11,5 +11,4 @@ public class Marking {
 		included = in;
 		pending = pe;
 	}
-
 }

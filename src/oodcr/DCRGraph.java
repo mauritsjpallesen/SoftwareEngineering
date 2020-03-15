@@ -3,7 +3,7 @@ package oodcr;
 import java.util.HashMap;
 
 public class DCRGraph {
-	public HashMap<String, Event> events = new HashMap<String, Event>();
+	public HashMap<String, Event> events = new HashMap<>();
 	
 	public DCRGraph() { 
 	}
@@ -24,8 +24,7 @@ public class DCRGraph {
 	{
 		events.put(e.name, e);
 	}
-	
-	
+
 	// src -->* trg
 	public void addCondition(String src, String trg)
 	{
@@ -49,7 +48,6 @@ public class DCRGraph {
 		
 		events.get(trg).milestones.add(events.get(src));		
 	}
-	
 		
 	// src *--> trg
 	public void addResponse(String src, String trg)
@@ -63,7 +61,6 @@ public class DCRGraph {
 		events.get(src).responses.add(events.get(trg));
 	}
 	
-	
 	// src -->+ trg
 	public void addInclude(String src, String trg)
 	{
@@ -74,8 +71,7 @@ public class DCRGraph {
 			return;
 		
 		events.get(src).includes.add(events.get(trg));		
-	}		
-	
+	}
 
 	// src -->% trg
 	public void addExclude(String src, String trg)
@@ -87,8 +83,7 @@ public class DCRGraph {
 			return;
 		
 		events.get(src).excludes.add(events.get(trg));		
-	}	
-	
+	}
 	
 	public void execute(String e)
 	{
