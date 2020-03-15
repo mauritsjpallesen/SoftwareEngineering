@@ -48,9 +48,7 @@ public class LayoutModel implements LayoutModel2D<Event> {
     }
 
     @Override
-    public void setFixed(Event o, boolean b) {
-
-    }
+    public void setFixed(Event o, boolean b) { }
 
     @Override
     public boolean isFixed(Event o) {

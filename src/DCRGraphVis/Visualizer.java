@@ -14,6 +14,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static java.lang.Math.*;
+
 public class Visualizer {
 
     final static BasicStroke solid = new BasicStroke();
@@ -45,8 +47,8 @@ public class Visualizer {
         arrowHead.addPoint( 3,-3);
     }
 
-    public void GenerateImage(DCRGraph graph, String fileName, ImageType imageType) throws IOException {
-        if (fileName == null)
+    public void GenerateImage(DCRGraph graph, String outputFileName, ImageType imageType) throws IOException {
+        if (outputFileName == null)
             throw new NullPointerException("No filename given");
 
         var nodes = layoutAlgorithm.generateNodes(graph);
@@ -83,7 +85,7 @@ public class Visualizer {
         var croppedImage = image.getSubimage(Math.max(boundingBox.x - borderWidth, 0), Math.max(boundingBox.y - borderWidth, 0), boundingBox.width + 2 * borderWidth, boundingBox.height + 2 * borderWidth);
         g2d.dispose();
 
-        var imageFile = new File(fileName);
+        var imageFile = new File(outputFileName);
         ImageIO.write(croppedImage, imageType.toString(), imageFile);
     }
 

@@ -2,7 +2,8 @@ package DCRGraphVis;
 
 public enum ImageType {
     PNG ("png"),
-    JPG ("jpg");
+    JPG ("jpg"),
+    PDF ("pdf");
 
     private final String name;
 
