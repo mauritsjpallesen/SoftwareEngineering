@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class LayoutModel implements LayoutModel2D<Event> {
     private Box2D drawingArea;
-    private HashMap<Event, Point2D> os = new HashMap<Event, Point2D>();
+    private HashMap<Event, Point2D> nodes = new HashMap<Event, Point2D>();
 
     public LayoutModel(int numberOfEvents) {
         drawingArea = new Box2D(numberOfEvents * (Node.Width + 50), numberOfEvents * (Node.Height + 50));
@@ -29,21 +29,21 @@ public class LayoutModel implements LayoutModel2D<Event> {
 
     @Override
     public Point2D get(Event o) {
-        if (os.containsKey(o))
-            return os.get(o);
+        if (nodes.containsKey(o))
+            return nodes.get(o);
 
         return null;
     }
 
     @Override
     public Point2D put(Event o, Point2D point2D) {
-        if (os.containsKey(o)) {
-            var prevPos = os.get(o);
-            os.put(o, point2D);
+        if (nodes.containsKey(o)) {
+            var prevPos = nodes.get(o);
+            nodes.put(o, point2D);
             return prevPos;
         }
 
-        os.put(o, point2D);
+        nodes.put(o, point2D);
         return null;
     }
 
@@ -59,6 +59,6 @@ public class LayoutModel implements LayoutModel2D<Event> {
 
     @Override
     public Iterator<Map.Entry<Event, Point2D>> iterator() {
-        return os.entrySet().iterator();
+        return nodes.entrySet().iterator();
     }
 }

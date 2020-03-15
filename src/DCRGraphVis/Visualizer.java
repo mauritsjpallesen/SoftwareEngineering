@@ -20,8 +20,8 @@ public class Visualizer {
     final static BasicStroke dashed = new BasicStroke(1.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 5.0f, new float[] { 5.0f }, 0.0f);
 
-    private Image tickImage;
-    private Image exclamationMarkImage;
+    private BufferedImage tickImage;
+    private BufferedImage exclamationMarkImage;
 
     private Polygon arrowHead;
 
@@ -33,8 +33,25 @@ public class Visualizer {
         try {
             tickImage = ImageIO.read(new File("src/DCRGraphVis/Images/tick.png"));
             exclamationMarkImage = ImageIO.read(new File("src/DCRGraphVis/Images/exclamation-mark.png"));
+            throw new IOException("some message");
         } catch (IOException e) {
-            throw new NullPointerException(e.getMessage());
+            tickImage = new BufferedImage(16, 16, BufferedImage.TYPE_INT_RGB);
+            exclamationMarkImage = new BufferedImage(16, 16, BufferedImage.TYPE_INT_RGB);
+            var tickImageG2d = tickImage.createGraphics();
+            var exclamationMarkImageG2d = exclamationMarkImage.createGraphics();
+            tickImageG2d.setColor(Color.white);
+            tickImageG2d.fillRect(0, 0, 16, 16);
+            tickImageG2d.setColor(Color.green);
+            tickImageG2d.setStroke(new BasicStroke(3));
+            tickImageG2d.drawLine(5, 10, 8, 14);
+            tickImageG2d.drawLine(8, 14, 14, 5);
+
+            exclamationMarkImageG2d.setColor(Color.white);
+            exclamationMarkImageG2d.fillRect(0, 0, 16, 16);
+            exclamationMarkImageG2d.setColor(Color.red);
+            exclamationMarkImageG2d.setStroke(new BasicStroke(3));
+            exclamationMarkImageG2d.drawLine(7, 1, 7, 8);
+            exclamationMarkImageG2d.fillRect(6, 13, 3, 3);
         }
 
         arrowHead = new Polygon();
