@@ -1,5 +1,5 @@
+import DCRGraphVis.FRLayoutAlgorithm;
 import DCRGraphVis.ImageType;
-import DCRGraphVis.LayoutAlgorithm;
 import DCRGraphVis.Visualizer;
 import Parser.InputFileParser;
 
@@ -15,7 +15,7 @@ public class Main {
         var parser = new InputFileParser();
         var dcrGraph = parser.parse("");
 
-        var layoutAlg = new LayoutAlgorithm();
+        var layoutAlg = new FRLayoutAlgorithm();
         var visualizer = new Visualizer(layoutAlg);
 
         try {
