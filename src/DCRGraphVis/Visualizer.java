@@ -35,23 +35,8 @@ public class Visualizer {
             exclamationMarkImage = ImageIO.read(new File("src/DCRGraphVis/Images/exclamation-mark.png"));
             throw new IOException("some message");
         } catch (IOException e) {
-            tickImage = new BufferedImage(16, 16, BufferedImage.TYPE_INT_RGB);
-            exclamationMarkImage = new BufferedImage(16, 16, BufferedImage.TYPE_INT_RGB);
-            var tickImageG2d = tickImage.createGraphics();
-            var exclamationMarkImageG2d = exclamationMarkImage.createGraphics();
-            tickImageG2d.setColor(Color.white);
-            tickImageG2d.fillRect(0, 0, 16, 16);
-            tickImageG2d.setColor(Color.green);
-            tickImageG2d.setStroke(new BasicStroke(3));
-            tickImageG2d.drawLine(5, 10, 8, 14);
-            tickImageG2d.drawLine(8, 14, 14, 5);
-
-            exclamationMarkImageG2d.setColor(Color.white);
-            exclamationMarkImageG2d.fillRect(0, 0, 16, 16);
-            exclamationMarkImageG2d.setColor(Color.red);
-            exclamationMarkImageG2d.setStroke(new BasicStroke(3));
-            exclamationMarkImageG2d.drawLine(7, 1, 7, 8);
-            exclamationMarkImageG2d.fillRect(6, 13, 3, 3);
+            drawTickImage();
+            drawExclamationMarkImage();
         }
 
         arrowHead = new Polygon();
@@ -263,5 +248,33 @@ public class Visualizer {
                 g.setColor(Color.red);
                 break;
         }
+    }
+
+    private double getAngle(Line2D line) {
+        return atan2(line.getY2()-line.getY1(), line.getX2()-line.getX1()) * (180/PI);
+    }
+
+    private void drawExclamationMarkImage() {
+        exclamationMarkImage = new BufferedImage(16, 16, BufferedImage.TYPE_INT_RGB);
+        var exclamationMarkImageG2d = exclamationMarkImage.createGraphics();
+        exclamationMarkImageG2d.setColor(Color.white);
+        exclamationMarkImageG2d.fillRect(0, 0, 16, 16);
+        exclamationMarkImageG2d.setColor(Color.red);
+        exclamationMarkImageG2d.setStroke(new BasicStroke(3));
+        exclamationMarkImageG2d.drawLine(7, 1, 7, 8);
+        exclamationMarkImageG2d.fillRect(6, 13, 3, 3);
+        exclamationMarkImageG2d.dispose();
+    }
+
+    private void drawTickImage() {
+        tickImage = new BufferedImage(16, 16, BufferedImage.TYPE_INT_RGB);
+        var tickImageG2d = tickImage.createGraphics();
+        tickImageG2d.setColor(Color.white);
+        tickImageG2d.fillRect(0, 0, 16, 16);
+        tickImageG2d.setColor(Color.green);
+        tickImageG2d.setStroke(new BasicStroke(3));
+        tickImageG2d.drawLine(5, 10, 8, 14);
+        tickImageG2d.drawLine(8, 14, 14, 5);
+        tickImageG2d.dispose();
     }
 }
