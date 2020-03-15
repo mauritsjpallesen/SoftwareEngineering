@@ -25,9 +25,9 @@ public class Visualizer {
 
     private Polygon arrowHead;
 
-    private LayoutAlgorithm layoutAlgorithm;
+    private ILayoutAlgorithm layoutAlgorithm;
 
-    public Visualizer(LayoutAlgorithm layoutAlgorithm) {
+    public Visualizer(ILayoutAlgorithm layoutAlgorithm) {
         this.layoutAlgorithm = layoutAlgorithm;
 
         try {
@@ -49,7 +49,7 @@ public class Visualizer {
         if (fileName == null)
             throw new NullPointerException("No filename given");
 
-        var nodes = layoutAlgorithm.generateWithJGraphT(graph);
+        var nodes = layoutAlgorithm.generateNodes(graph);
         var boundingBox = boundingBox(nodes);
         var borderWidth = 15;
 
