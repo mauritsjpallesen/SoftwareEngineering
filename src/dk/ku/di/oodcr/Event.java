@@ -1,5 +1,6 @@
 package dk.ku.di.oodcr;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class Event {
@@ -9,18 +10,21 @@ public class Event {
 	public String label;
 	
 	public Marking marking = new Marking(false, true, false);
-	
-	public HashSet<Event> conditions = new HashSet<>();
-	public HashSet<Event> respones = new HashSet<>();
-	public HashSet<Event> milestones = new HashSet<>();
-	public HashSet<Event> includes = new HashSet<>();
-	public HashSet<Event> excludes = new HashSet<>();
+
+	private HashMap<RelationshipType,HashSet<Event>> relationships;
 
 	public Event(String n, String l)
 	{
 		name = n;
 		label = l;
-	}	
+	}
+
+
+	public void addRelationship(RelationshipType relationshipType, Event event){
+		relationships.putIfAbsent(relationshipType, new HashSet<>());
+
+		relationships.get(relationshipType).add(event);
+	}
 	
 	
 	public Event(String n)
@@ -33,11 +37,11 @@ public class Event {
 		if (!marking.included)
 			return false;
 		
-		for (Event e : conditions)
+		for (Event e : relationships.get(RelationshipType.CONDITIONS))
 			if (e.marking.included && !e.marking.executed)
 				return false;
 		
-		for (Event e : milestones)
+		for (Event e : relationships.get(RelationshipType.MILESTONES))
 			if (e.marking.included && e.marking.pending)
 				return false;
 		
@@ -52,13 +56,13 @@ public class Event {
 		marking.executed = true;
 		marking.pending = false;
 		
-		for (Event e: respones)
+		for (Event e: relationships.get(RelationshipType.RESPONSES))
 			e.marking.pending = true;
 		
-		for (Event e: excludes)
+		for (Event e: relationships.get(RelationshipType.EXCLUDES))
 			e.marking.included = false;
 
-		for (Event e: includes)
+		for (Event e: relationships.get(RelationshipType.INCLUDES))
 			e.marking.included = true;
 		
 		return;		
