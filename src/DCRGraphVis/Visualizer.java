@@ -1,6 +1,6 @@
 package DCRGraphVis;
 
-import oodcr.DCRGraph;
+import dk.ku.di.oodcr.DCRGraph;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
