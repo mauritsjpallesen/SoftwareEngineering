@@ -1,6 +1,6 @@
 package DCRGraphVis;
 
-import oodcr.DCRGraph;
+import dk.ku.di.oodcr.DCRGraph;
 
 import java.util.ArrayList;
 

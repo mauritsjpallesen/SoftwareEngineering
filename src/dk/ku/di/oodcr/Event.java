@@ -1,4 +1,4 @@
-package oodcr;
+package dk.ku.di.oodcr;
 
 import java.util.HashSet;
 import java.util.UUID;

@@ -1,7 +1,7 @@
 package Parser;
 
-import oodcr.DCRGraph;
-import oodcr.Event;
+import dk.ku.di.oodcr.DCRGraph;
+import dk.ku.di.oodcr.Event;
 
 public class InputFileParser {
     public DCRGraph parse(String fileName) {

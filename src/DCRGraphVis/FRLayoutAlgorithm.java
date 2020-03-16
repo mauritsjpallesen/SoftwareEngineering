@@ -1,7 +1,7 @@
 package DCRGraphVis;
 
-import oodcr.DCRGraph;
-import oodcr.Event;
+import dk.ku.di.oodcr.DCRGraph;
+import dk.ku.di.oodcr.Event;
 
 import java.util.ArrayList;
 

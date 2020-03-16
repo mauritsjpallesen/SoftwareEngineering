@@ -1,6 +1,6 @@
 package DCRGraphVis;
 
-import oodcr.Event;
+import dk.ku.di.oodcr.Event;
 import org.jgrapht.alg.drawing.model.Box2D;
 import org.jgrapht.alg.drawing.model.LayoutModel2D;
 import org.jgrapht.alg.drawing.model.Point2D;

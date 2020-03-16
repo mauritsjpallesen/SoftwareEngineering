@@ -1,6 +1,6 @@
 package DCRGraphVis;
 
-import oodcr.Event;
+import dk.ku.di.oodcr.Event;
 
 import java.util.Objects;
 
@@ -26,7 +26,7 @@ public class Node {
         if (this == o) return true;
         if (o == null) return false;
         if (this.getClass() == o.getClass()) return ((Node)o).Event.id == Event.id;
-        if (o.getClass() == oodcr.Event.class) return ((Event)o).id == Event.id;
+        if (o.getClass() == dk.ku.di.oodcr.Event.class) return ((Event)o).id == Event.id;
         return false;
     }
 

@@ -1,4 +1,4 @@
-package oodcr;
+package dk.ku.di.oodcr;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

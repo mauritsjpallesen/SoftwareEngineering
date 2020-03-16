@@ -1,4 +1,4 @@
-package oodcr;
+package dk.ku.di.oodcr;
 
 import java.util.HashMap;
 
@@ -97,7 +97,7 @@ public class DCRGraph {
 		for (Event e : events.values())
 			if (!e.isAccepting())
 				return false;
-						
+
 		return true;	
 	}
 }

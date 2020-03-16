@@ -1,4 +1,4 @@
-package oodcr;
+package dk.ku.di.oodcr;
 
 public class Marking {
 	
