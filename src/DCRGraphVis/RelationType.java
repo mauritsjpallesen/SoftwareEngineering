@@ -9,12 +9,14 @@ public enum RelationType {
 
     private final String name;
 
-    RelationType(String s) {
+    RelationType(String s)
+    {
         name = s;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return this.name;
     }
 }
