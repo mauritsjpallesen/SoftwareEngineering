@@ -5,6 +5,7 @@ import dk.ku.di.oodcr.Event;
 
 import java.util.ArrayList;
 
+import dk.ku.di.oodcr.RelationshipType;
 import org.jgrapht.*;
 import org.jgrapht.alg.drawing.model.Point2D;
 import org.jgrapht.graph.*;
@@ -22,20 +23,9 @@ public class FRLayoutAlgorithm implements ILayoutAlgorithm {
         }
 
         for (Event e1: events) {
-            for (Event e2: events) {
-                if (e1.excludes.contains(e2))
-                    g.addEdge(e1, e2);
-
-                if (e1.includes.contains(e2))
-                    g.addEdge(e1, e2);
-
-                if (e1.responses.contains(e2))
-                    g.addEdge(e1, e2);
-
-                if (e1.milestones.contains(e2))
-                    g.addEdge(e1, e2);
-
-                if (e1.conditions.contains(e2))
+            var relations = e1.getRelationships().entrySet();
+            for (Map.Entry<RelationshipType, HashSet<Event>> entry: relations) {
+                for (Event e2 : entry.getValue())
                     g.addEdge(e1, e2);
             }
         }

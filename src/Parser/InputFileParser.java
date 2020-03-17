@@ -2,6 +2,7 @@ package Parser;
 
 import dk.ku.di.oodcr.DCRGraph;
 import dk.ku.di.oodcr.Event;
+import dk.ku.di.oodcr.RelationshipType;
 
 public class InputFileParser {
     public DCRGraph parse(String fileName) {
@@ -23,15 +24,14 @@ public class InputFileParser {
         e2.marking.pending = true;
         e4.marking.executed = true;
 
-        e1.includes.add(e2);
-        e2.milestones.add(e4);
-        e2.includes.add(e5);
-        e3.excludes.add(e4);
-        e3.excludes.add(e1);
-        e4.responses.add(e1);
-        e5.includes.add(e6);
-        e6.milestones.add(e7);
-        e7.excludes.add(e1);
+        e1.addRelationship(RelationshipType.INCLUDES, e2);
+        e2.addRelationship(RelationshipType.MILESTONES, e3);
+        e3.addRelationship(RelationshipType.EXCLUDES, e4);
+        e3.addRelationship(RelationshipType.EXCLUDES, e5);
+        e4.addRelationship(RelationshipType.RESPONSES, e5);
+        e5.addRelationship(RelationshipType.INCLUDES, e6);
+        e6.addRelationship(RelationshipType.MILESTONES, e7);
+        e7.addRelationship(RelationshipType.EXCLUDES, e1);
 
         g.events.put(e1.name, e1);
         g.events.put(e2.name, e2);

@@ -17,20 +17,23 @@ public class Event {
 	{
 		name = n;
 		label = l;
+		relationships = new HashMap<>();
 	}
-
-
-	public void addRelationship(RelationshipType relationshipType, Event event){
-		relationships.putIfAbsent(relationshipType, new HashSet<>());
-
-		relationships.get(relationshipType).add(event);
-	}
-	
 	
 	public Event(String n)
 	{
 		this(n, n);
-	}	
+	}
+
+	public HashMap<RelationshipType, HashSet<Event>> getRelationships() {
+		return relationships;
+	}
+
+	public void addRelationship(RelationshipType relationshipType, Event event) {
+		relationships.putIfAbsent(relationshipType, new HashSet<>());
+
+		relationships.get(relationshipType).add(event);
+	}
 	
 	public Boolean enabled()
 	{
@@ -67,12 +70,9 @@ public class Event {
 		
 		return;		
 	}
-	
-	
+
 	public boolean isAccepting()
 	{
 		return (!(marking.pending && marking.included));		
 	}
-	
-	
 }
