@@ -1,0 +1,2 @@
+What exactly is the input file we settled for
+What exactly is the output of the visualizer
