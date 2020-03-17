@@ -1,5 +1,6 @@
 package dk.ku.di.oodcr;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DCRGraph {
@@ -29,10 +30,11 @@ public class DCRGraph {
         if (!events.containsKey(trg))
             return;
 
-        events.get(src).addRelationship(relationshipType, events.get(trg));
+        if (relationshipType == RelationshipType.CONDITIONS || relationshipType == RelationshipType.MILESTONES)
+            events.get(trg).addRelationship(relationshipType, events.get(src));
+        else
+            events.get(src).addRelationship(relationshipType, events.get(trg));
     }
-
-    // These methods are here for backward compatibility, TODO refactor
 
     // src -->* trg
     public void addCondition(String src, String trg) {
@@ -42,7 +44,7 @@ public class DCRGraph {
         if (!events.containsKey(trg))
             return;
 
-        events.get(src).addRelationship(RelationshipType.CONDITIONS, events.get(trg));
+        events.get(trg).addRelationship(RelationshipType.CONDITIONS, events.get(src));
     }
 
     // src --><> trg
@@ -53,7 +55,7 @@ public class DCRGraph {
         if (!events.containsKey(trg))
             return;
 
-        events.get(src).addRelationship(RelationshipType.MILESTONES, events.get(trg));
+        events.get(trg).addRelationship(RelationshipType.MILESTONES, events.get(src));
     }
 
 
