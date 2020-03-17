@@ -1,6 +1,7 @@
 package DCRGraphVis;
 
-import dk.ku.di.oodcr.DCRGraph;
+import dk.ku.di.oodcr.*;
+import dk.ku.di.oodcr.Event;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -13,6 +14,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Map;
 
 import static java.lang.Math.*;
 
@@ -64,21 +67,22 @@ public class Visualizer {
             drawNode(g2d, node);
 
         for (Node e: nodes) {
-            for (Node n: nodes) {
-                if (e.Event.excludes.contains(n.Event))
-                    drawRelation(g2d, e, n, RelationType.Excludes);
+            var relations = e.Event.getRelationships().entrySet();
+            for (Map.Entry<RelationshipType, HashSet<Event>> entry: relations) {
+                for (Event e1 : entry.getValue()) {
+                    Node n = null;
+                    for (Node no: nodes) {
+                        if (no.Event == e1) {
+                            n = no;
+                            break;
+                        }
+                    }
 
-                if (e.Event.includes.contains(n.Event))
-                    drawRelation(g2d, e, n, RelationType.Includes);
+                    if (n == null)
+                        continue;
 
-                if (e.Event.responses.contains(n.Event))
-                    drawRelation(g2d, e, n, RelationType.Response);
-
-                if (e.Event.milestones.contains(n.Event))
-                    drawRelation(g2d, e, n, RelationType.Milestone);
-
-                if (e.Event.conditions.contains(n.Event))
-                    drawRelation(g2d, e, n, RelationType.Condition);
+                    drawRelation(g2d, e, n, entry.getKey());
+                }
             }
         }
 
@@ -113,9 +117,9 @@ public class Visualizer {
             g.drawImage(exclamationMarkImage, node.X + Node.Width - 5 - exclamationMarkImage.getWidth(null), labelY + labelBounds.height + 5, null);
     }
 
-    public void drawRelation(Graphics2D g, Node nodeFrom, Node nodeTo, RelationType relationType) {
+    public void drawRelation(Graphics2D g, Node nodeFrom, Node nodeTo, RelationshipType relationshipType) {
         g.setStroke(solid);
-        setDrawColorAccordingToRelationshipType(g, relationType);
+        setDrawColorAccordingToRelationshipType(g, relationshipType);
 
         Line2D line = null;
         int xSpacing = 0;
@@ -172,12 +176,12 @@ public class Visualizer {
         if (line == null)
             throw new NullPointerException("Relation line was never set");
 
-        if (relationType == RelationType.Response) {
+        if (relationshipType == RelationshipType.RESPONSES) {
             line.setLine(line.getX1(), line.getY1(), line.getX2() - xSpacing, line.getY2() - ySpacing);
-            g.drawString(relationType.toString(), (float)line.getX1(), (float)line.getY1());
+            g.drawString(relationshipType.toString(), (float)line.getX1(), (float)line.getY1());
         }
         else
-            g.drawString(relationType.toString(), (float)line.getX2() - xSpacing, (float)line.getY2() - ySpacing);
+            g.drawString(relationshipType.toString(), (float)line.getX2() - xSpacing, (float)line.getY2() - ySpacing);
         drawRelationShipArrowHead(g, line);
         g.draw(line);
 
@@ -232,21 +236,21 @@ public class Visualizer {
         return new Rectangle(minX, minY, maxX - minX, maxY - minY);
     }
 
-    private void setDrawColorAccordingToRelationshipType(Graphics2D g, RelationType relationshipType) {
+    private void setDrawColorAccordingToRelationshipType(Graphics2D g, RelationshipType relationshipType) {
         switch (relationshipType) {
-            case Condition:
+            case CONDITIONS:
                 g.setColor(Color.yellow);
                 break;
-            case Response:
+            case RESPONSES:
                 g.setColor(Color.blue);
                 break;
-            case Milestone:
+            case MILESTONES:
                 g.setColor(Color.pink);
                 break;
-            case Includes:
+            case INCLUDES:
                 g.setColor(Color.green);
                 break;
-            case Excludes:
+            case EXCLUDES:
                 g.setColor(Color.red);
                 break;
         }
