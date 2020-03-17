@@ -126,51 +126,51 @@ public class Visualizer {
         int ySpacing = 0;
 
         if (nodeFrom.X < nodeTo.X && nodeFrom.Y < nodeTo.Y) {
-            xSpacing = -10;
-            ySpacing = -10;
-            line = new Line2D.Float(nodeFrom.X + Node.Width, nodeFrom.Y + Node.Height, nodeTo.X - 10, nodeTo.Y - 10);
+            xSpacing = -5;
+            ySpacing = -5;
+            line = new Line2D.Float(nodeFrom.X + Node.Width, nodeFrom.Y + Node.Height, nodeTo.X - 5, nodeTo.Y - 5);
         }
 
         if (nodeFrom.X < nodeTo.X && nodeFrom.Y == nodeTo.Y) {
-            xSpacing = -15;
+            xSpacing = -5;
             ySpacing = 0;
-            line = new Line2D.Float(nodeFrom.X + Node.Width, nodeFrom.Y + Node.Height/2, nodeTo.X - 15, nodeTo.Y + Node.Height/2);
+            line = new Line2D.Float(nodeFrom.X + Node.Width, nodeFrom.Y + Node.Height/2, nodeTo.X - 5, nodeTo.Y + Node.Height/2);
         }
 
         if (nodeFrom.X < nodeTo.X && nodeFrom.Y > nodeTo.Y) {
-            xSpacing = -10;
-            ySpacing = 10;
-            line = new Line2D.Float(nodeFrom.X + Node.Width, nodeFrom.Y, nodeTo.X - 10, nodeTo.Y + Node.Height + 10);
+            xSpacing = -5;
+            ySpacing = 0;
+            line = new Line2D.Float(nodeFrom.X + Node.Width, nodeFrom.Y, nodeTo.X - 5, nodeTo.Y + Node.Height + 5);
         }
 
         if (nodeFrom.X == nodeTo.X && nodeFrom.Y < nodeTo.Y) {
             xSpacing = 0;
-            ySpacing = -15;
-            line = new Line2D.Float(nodeFrom.X + Node.Width/2, nodeFrom.Y + Node.Height, nodeTo.X + Node.Width/2, nodeTo.Y - 15);
+            ySpacing = -5;
+            line = new Line2D.Float(nodeFrom.X + Node.Width/2, nodeFrom.Y + Node.Height, nodeTo.X + Node.Width/2, nodeTo.Y - 5);
         }
 
         if (nodeFrom.X == nodeTo.X && nodeFrom.Y > nodeTo.Y) {
             xSpacing = 0;
-            ySpacing = 15;
-            line = new Line2D.Float(nodeFrom.X + Node.Width/2, nodeFrom.Y, nodeTo.X + Node.Width/2, nodeTo.Y + Node.Height + 15);
+            ySpacing = 5;
+            line = new Line2D.Float(nodeFrom.X + Node.Width/2, nodeFrom.Y, nodeTo.X + Node.Width/2, nodeTo.Y + Node.Height + 5);
         }
 
         if (nodeFrom.X > nodeTo.X && nodeFrom.Y == nodeTo.Y) {
-            xSpacing = 15;
+            xSpacing = 5;
             ySpacing = 0;
-            line = new Line2D.Float(nodeFrom.X, nodeFrom.Y + Node.Height/2, nodeTo.X + Node.Width + 15, nodeTo.Y + Node.Height/2);
+            line = new Line2D.Float(nodeFrom.X, nodeFrom.Y + Node.Height/2, nodeTo.X + Node.Width + 5, nodeTo.Y + Node.Height/2);
         }
 
         if (nodeFrom.X > nodeTo.X && nodeFrom.Y > nodeTo.Y) {
-            xSpacing = 10;
-            ySpacing = 10;
-            line = new Line2D.Float(nodeFrom.X, nodeFrom.Y, nodeTo.X + Node.Width + 10, nodeTo.Y + Node.Height + 10);
+            xSpacing = 5;
+            ySpacing = 5;
+            line = new Line2D.Float(nodeFrom.X, nodeFrom.Y, nodeTo.X + Node.Width + 5, nodeTo.Y + Node.Height + 5);
         }
 
         if (nodeFrom.X > nodeTo.X && nodeFrom.Y < nodeTo.Y) {
-            xSpacing = 10;
-            ySpacing = -10;
-            line = new Line2D.Float(nodeFrom.X + Node.Width, nodeFrom.Y + Node.Height, nodeTo.X + 10, nodeTo.Y - 10);
+            xSpacing = 5;
+            ySpacing = -5;
+            line = new Line2D.Float(nodeFrom.X + Node.Width, nodeFrom.Y + Node.Height, nodeTo.X + 5, nodeTo.Y - 0);
         }
 
         if (line == null)
