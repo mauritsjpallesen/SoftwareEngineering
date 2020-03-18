@@ -6,7 +6,6 @@ import dk.ku.di.oodcr.Event;
 import java.util.ArrayList;
 
 import dk.ku.di.oodcr.RelationshipType;
-import org.jgrapht.*;
 import org.jgrapht.alg.drawing.model.Point2D;
 import org.jgrapht.graph.*;
 import  org.jgrapht.alg.drawing.*;
@@ -15,7 +14,7 @@ import java.util.*;
 public class FRLayoutAlgorithm implements ILayoutAlgorithm {
 
     public ArrayList<Node> generateNodes(DCRGraph graph) {
-        Graph<Event, DefaultEdge> g = new SimpleGraph<>(DefaultEdge.class);
+        var g = new SimpleGraph<Event, DefaultEdge>(DefaultEdge.class);
         var events = graph.events.values();
 
         for (Event e: events) {
