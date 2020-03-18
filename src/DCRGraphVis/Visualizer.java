@@ -17,11 +17,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 
-import static java.lang.Math.*;
-
 public class Visualizer {
 
-    final static BasicStroke solid = new BasicStroke();
+    final static BasicStroke solidThin = new BasicStroke();
+    final static BasicStroke solidThick = new BasicStroke(2);
     final static BasicStroke dashed = new BasicStroke(1.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 5.0f, new float[] { 5.0f }, 0.0f);
 
@@ -45,9 +44,9 @@ public class Visualizer {
         }
 
         arrowHead = new Polygon();
-        arrowHead.addPoint( 0,3);
-        arrowHead.addPoint( -3, -3);
-        arrowHead.addPoint( 3,-3);
+        arrowHead.addPoint( 0,5);
+        arrowHead.addPoint( -5, -5);
+        arrowHead.addPoint( 5,-5);
     }
 
     public void GenerateImage(DCRGraph graph, String outputFileName, ImageType imageType) throws IOException {
@@ -86,7 +85,7 @@ public class Visualizer {
             }
         }
 
-        var croppedImage = image.getSubimage(Math.max(boundingBox.x - borderWidth, 0), Math.max(boundingBox.y - borderWidth, 0), boundingBox.width + 2 * borderWidth, boundingBox.height + 2 * borderWidth);
+        var croppedImage = image.getSubimage(boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
         g2d.dispose();
 
         var imageFile = new File(outputFileName);
@@ -98,7 +97,7 @@ public class Visualizer {
         if (!node.Event.marking.included)
             g.setStroke(dashed);
         else
-            g.setStroke(solid);
+            g.setStroke(solidThin);
 
         g.draw(new RoundRectangle2D.Float(node.X, node.Y, Node.Width, Node.Height, 10, 10));
         var formattedLabel = String.join("\n", splitStringByNumberOfCharacters(node.Event.label, 10));
@@ -118,70 +117,40 @@ public class Visualizer {
     }
 
     public void drawRelation(Graphics2D g, Node nodeFrom, Node nodeTo, RelationshipType relationshipType) {
-        g.setStroke(solid);
+        g.setStroke(solidThick);
         setDrawColorAccordingToRelationshipType(g, relationshipType);
 
+        var symbolMargin = 18;
+
         Line2D line = null;
-        int xSpacing = 0;
-        int ySpacing = 0;
+        var angle = angleBetweenNodes(nodeFrom, nodeTo);
 
-        if (nodeFrom.X < nodeTo.X && nodeFrom.Y < nodeTo.Y) {
-            xSpacing = -5;
-            ySpacing = -5;
-            line = new Line2D.Float(nodeFrom.X + Node.Width, nodeFrom.Y + Node.Height, nodeTo.X - 5, nodeTo.Y - 5);
-        }
-
-        if (nodeFrom.X < nodeTo.X && nodeFrom.Y == nodeTo.Y) {
-            xSpacing = -5;
-            ySpacing = 0;
-            line = new Line2D.Float(nodeFrom.X + Node.Width, nodeFrom.Y + Node.Height/2, nodeTo.X - 5, nodeTo.Y + Node.Height/2);
-        }
-
-        if (nodeFrom.X < nodeTo.X && nodeFrom.Y > nodeTo.Y) {
-            xSpacing = -5;
-            ySpacing = 0;
-            line = new Line2D.Float(nodeFrom.X + Node.Width, nodeFrom.Y, nodeTo.X - 5, nodeTo.Y + Node.Height + 5);
-        }
-
-        if (nodeFrom.X == nodeTo.X && nodeFrom.Y < nodeTo.Y) {
-            xSpacing = 0;
-            ySpacing = -5;
-            line = new Line2D.Float(nodeFrom.X + Node.Width/2, nodeFrom.Y + Node.Height, nodeTo.X + Node.Width/2, nodeTo.Y - 5);
-        }
-
-        if (nodeFrom.X == nodeTo.X && nodeFrom.Y > nodeTo.Y) {
-            xSpacing = 0;
-            ySpacing = 5;
-            line = new Line2D.Float(nodeFrom.X + Node.Width/2, nodeFrom.Y, nodeTo.X + Node.Width/2, nodeTo.Y + Node.Height + 5);
-        }
-
-        if (nodeFrom.X > nodeTo.X && nodeFrom.Y == nodeTo.Y) {
-            xSpacing = 5;
-            ySpacing = 0;
-            line = new Line2D.Float(nodeFrom.X, nodeFrom.Y + Node.Height/2, nodeTo.X + Node.Width + 5, nodeTo.Y + Node.Height/2);
-        }
-
-        if (nodeFrom.X > nodeTo.X && nodeFrom.Y > nodeTo.Y) {
-            xSpacing = 5;
-            ySpacing = 5;
-            line = new Line2D.Float(nodeFrom.X, nodeFrom.Y, nodeTo.X + Node.Width + 5, nodeTo.Y + Node.Height + 5);
-        }
-
-        if (nodeFrom.X > nodeTo.X && nodeFrom.Y < nodeTo.Y) {
-            xSpacing = 5;
-            ySpacing = -5;
-            line = new Line2D.Float(nodeFrom.X + Node.Width, nodeFrom.Y + Node.Height, nodeTo.X + 5, nodeTo.Y - 0);
-        }
+        if (angle <= -150 || angle > 150)
+            line = new Line2D.Float(nodeFrom.X, nodeFrom.Y + Node.Height / 3, nodeTo.X + Node.Width + symbolMargin, nodeTo.Y + Node.Height / 3);
+        else if (-150 <= angle && angle < -120)
+            line = new Line2D.Float(nodeFrom.X + Node.Width / 5, nodeFrom.Y, nodeTo.X + Node.Width + symbolMargin, nodeTo.Y + 4 * Node.Height / 5 + symbolMargin);
+        else if (-120 <= angle && angle < -60)
+            line = new Line2D.Float(nodeFrom.X + 2 * Node.Width / 3, nodeFrom.Y, nodeTo.X + 2 * Node.Width / 3, nodeTo.Y + Node.Height + symbolMargin);
+        else if (-60 <= angle && angle < -30)
+            line = new Line2D.Float(nodeFrom.X + Node.Width, nodeFrom.Y + Node.Height / 5, nodeTo.X + Node.Width / 5 - symbolMargin, nodeTo.Y + Node.Height + symbolMargin);
+        else if (-30 <= angle && angle < 30 )
+            line = new Line2D.Float(nodeFrom.X + Node.Width, nodeFrom.Y + 2 * Node.Height / 3, nodeTo.X - symbolMargin, nodeTo.Y + 2 * Node.Height / 3);
+        else if (30 <= angle && angle < 60 )
+            line = new Line2D.Float(nodeFrom.X + 4 * Node.Width / 5, nodeFrom.Y + Node.Height, nodeTo.X - symbolMargin, nodeTo.Y + Node.Height / 5 - symbolMargin);
+        else if (60 <= angle && angle < 120 )
+            line = new Line2D.Float(nodeFrom.X + Node.Width / 5, nodeFrom.Y + Node.Height, nodeTo.X + Node.Width / 5, nodeTo.Y - symbolMargin);
+        else if (120 <= angle && angle <= 150)
+            line = new Line2D.Float(nodeFrom.X, nodeFrom.Y + 4 * Node.Height / 5, nodeTo.X + 4 * Node.Width / 5 + symbolMargin, nodeTo.Y - symbolMargin);
 
         if (line == null)
             throw new NullPointerException("Relation line was never set");
 
         if (relationshipType == RelationshipType.RESPONSES) {
-            line.setLine(line.getX1(), line.getY1(), line.getX2() - xSpacing, line.getY2() - ySpacing);
+            line.setLine(line.getX1(), line.getY1(), line.getX2(), line.getY2());
             g.drawString(relationshipType.toString(), (float)line.getX1(), (float)line.getY1());
         }
         else
-            g.drawString(relationshipType.toString(), (float)line.getX2() - xSpacing, (float)line.getY2() - ySpacing);
+            drawRelationString(g, line, relationshipType.toString());
         drawRelationShipArrowHead(g, line);
         g.draw(line);
 
@@ -189,6 +158,8 @@ public class Visualizer {
     }
 
     private void drawRelationShipArrowHead(Graphics2D g, Line2D line) {
+        var curStroke = g.getStroke();
+        g.setStroke(new BasicStroke(4));
         AffineTransform tx = new AffineTransform();
         tx.setToIdentity();
         double angle = Math.atan2(line.getY2()-line.getY1(), line.getX2()-line.getX1());
@@ -199,6 +170,24 @@ public class Visualizer {
         g.setTransform(tx);
         g.fill(arrowHead);
         g.setTransform(t);
+        g.setStroke(curStroke);
+    }
+
+    private void drawRelationString(Graphics2D g, Line2D line, String str) {
+        var curStroke = g.getStroke();
+        g.setStroke(new BasicStroke(4));
+        AffineTransform tx = new AffineTransform();
+        tx.setToIdentity();
+        tx.translate(line.getX2(), line.getY2());
+
+        var t = g.getTransform();
+        var curFont  = g.getFont();
+        g.setTransform(tx);
+        g.setFont(new Font("TimesRoman", Font.BOLD, 14));
+        g.drawString(str, -3, 15);
+        g.setFont(curFont);
+        g.setTransform(t);
+        g.setStroke(curStroke);
     }
 
     private Rectangle getBoundingBoxOfString(Graphics2D g2, String str, int x, int y)
@@ -232,7 +221,6 @@ public class Visualizer {
                 maxY = node.Y + Node.Height;
         }
 
-
         return new Rectangle(minX, minY, maxX - minX, maxY - minY);
     }
 
@@ -254,10 +242,6 @@ public class Visualizer {
                 g.setColor(Color.red);
                 break;
         }
-    }
-
-    private double getAngle(Line2D line) {
-        return atan2(line.getY2()-line.getY1(), line.getX2()-line.getX1()) * (180/PI);
     }
 
     private void drawExclamationMarkImage() {
@@ -282,5 +266,10 @@ public class Visualizer {
         tickImageG2d.drawLine(5, 10, 8, 14);
         tickImageG2d.drawLine(8, 14, 14, 5);
         tickImageG2d.dispose();
+    }
+
+    private double angleBetweenNodes(Node nodeFrom, Node nodeTo) {
+        var radians = Math.atan2(nodeTo.Y-nodeFrom.Y, nodeTo.X-nodeFrom.X);
+        return radians * 180 / Math.PI;
     }
 }
