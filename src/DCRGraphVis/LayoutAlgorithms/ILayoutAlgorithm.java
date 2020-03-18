@@ -1,5 +1,6 @@
-package DCRGraphVis;
+package DCRGraphVis.LayoutAlgorithms;
 
+import DCRGraphVis.Node;
 import dk.ku.di.oodcr.DCRGraph;
 
 import java.util.ArrayList;

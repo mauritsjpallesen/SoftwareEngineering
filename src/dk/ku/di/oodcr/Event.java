@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class Event {
-	
-	
+
 	public String name;
 	public String label;
 	

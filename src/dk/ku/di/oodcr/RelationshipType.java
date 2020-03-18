@@ -4,7 +4,7 @@ public enum RelationshipType {
     CONDITIONS("\u23FA"),
     RESPONSES("\u23FA"),
     MILESTONES ("\u25C7"),
-    INCLUDES ("+"),
+    INCLUDES ("\uFF0B"),
     EXCLUDES("%");
 
     private final String name;

@@ -24,13 +24,15 @@ public class InputFileParser {
         e2.marking.pending = true;
         e4.marking.executed = true;
 
-        e1.addRelationship(RelationshipType.INCLUDES, e2);
-        e2.addRelationship(RelationshipType.MILESTONES, e3);
-        e3.addRelationship(RelationshipType.EXCLUDES, e4);
-        e3.addRelationship(RelationshipType.EXCLUDES, e5);
-        e4.addRelationship(RelationshipType.RESPONSES, e5);
-        e5.addRelationship(RelationshipType.INCLUDES, e6);
-        e6.addRelationship(RelationshipType.MILESTONES, e7);
+        e1.addRelationship(RelationshipType.MILESTONES, e2);
+        e2.addRelationship(RelationshipType.RESPONSES, e1);
+        e2.addRelationship(RelationshipType.EXCLUDES, e3);
+        e3.addRelationship(RelationshipType.INCLUDES, e1);
+        e3.addRelationship(RelationshipType.CONDITIONS, e5);
+        e4.addRelationship(RelationshipType.CONDITIONS, e5);
+        e5.addRelationship(RelationshipType.RESPONSES, e4);
+        e5.addRelationship(RelationshipType.MILESTONES, e6);
+        e6.addRelationship(RelationshipType.INCLUDES, e7);
         e7.addRelationship(RelationshipType.EXCLUDES, e1);
 
         g.events.put(e1.name, e1);
