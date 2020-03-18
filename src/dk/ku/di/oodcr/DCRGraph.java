@@ -1,6 +1,5 @@
 package dk.ku.di.oodcr;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DCRGraph {

@@ -1,5 +1,7 @@
-package DCRGraphVis;
+package DCRGraphVis.LayoutAlgorithms;
 
+import DCRGraphVis.LayoutModel;
+import DCRGraphVis.Node;
 import dk.ku.di.oodcr.DCRGraph;
 import dk.ku.di.oodcr.Event;
 
