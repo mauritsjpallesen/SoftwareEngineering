@@ -69,13 +69,13 @@ class DCRGraphGrammarParserTest {
         DCRGraphGrammarParser parser = setupParser("e1(0,1,0),\n" +
                 "e2<A>(1,1,0),\n" +
                 "e3(0,1,0){\n" +
-                "*-->e3\n" +
-                "-->+e2\n" +
+                "  *--> e3\n" +
+                "  -->+ e2\n" +
                 "},\n" +
                 "e4<B>(0,0,1){\n" +
-                "e1-->*\n" +
-                "-->%(e4,e2)\n" +
-                "-->+e1\n" +
+                "  e1 -->* \n" +
+                "  -->% (e4,e2)\n" +
+                "  -->+ e1\n" +
                 "}");
 
         DCRGraph graph = parser.graph().value;
@@ -83,11 +83,6 @@ class DCRGraphGrammarParserTest {
         Assertions.assertEquals(4, graph.events.size());
 
         // TODO test the relationships
-    }
-
-
-    @Test
-    void eventz() {
     }
 
     @Test
@@ -121,6 +116,7 @@ class DCRGraphGrammarParserTest {
         Assertions.assertEquals(5,rels.size());
     }
 
+    /*
     @Test
     void relationship() {
     }
@@ -155,5 +151,5 @@ class DCRGraphGrammarParserTest {
 
     @Test
     void idSeq() {
-    }
+    }*/
 }
