@@ -17,7 +17,7 @@ graph returns [DCRGraph value]
 @init {
     $value = new DCRGraph();
 }
-    : e=event es=eventz {
+    : WS* e=event es=eventz {
             $value.addEvent($e.value);
             $es.value.forEach(e -> $value.addEvent(e));
 
@@ -38,7 +38,7 @@ eventz returns [List<Event> value]
 @init {
     $value = new ArrayList<Event>();
 }
-    : ',' NEWLINE e=event ez=eventz {
+    : ',' WS* NEWLINE WS*  e=event ez=eventz {
             $value.add($e.value);
             $value.addAll($ez.value);
         }
@@ -49,7 +49,8 @@ eventz returns [List<Event> value]
 
 
 event returns [Event value]
-    : ID el=eventLabel? '(' ex=ONEorZERO','in=ONEorZERO','pen=ONEorZERO')' ('{'NEWLINE rs=relationships '}')?
+    : ID WS* el=eventLabel? '(' WS* ex=ONEorZERO WS* ',' WS* in=ONEorZERO WS* ',' WS* pen=ONEorZERO WS* ')' WS*
+        ('{'NEWLINE WS* rs=relationships '}' WS* )?
         {
 
             $value = (_localctx.el == null) ? new Event($ID.text) : new Event($ID.text, $el.value);
@@ -89,8 +90,8 @@ relationships returns [List<OneSidedRelationship> value]
 @init {
     $value = new ArrayList<OneSidedRelationship>();
 }
-    : r=relationship NEWLINE rs=relationships { $value.add($r.value); $value.addAll($rs.value); }
-    | // Epsilon
+    : r=relationship NEWLINE WS* rs=relationships { $value.add($r.value); $value.addAll($rs.value); }
+    | WS* // Epsilon
     ;
 
 relationship returns [OneSidedRelationship value]
@@ -102,57 +103,56 @@ relationship returns [OneSidedRelationship value]
     ;
 
 conditions returns [OneSidedRelationship value]
-    : ids=idOneOrMore '-->*' { $value = new OneSidedRelationship(RelationshipType.CONDITIONS, VertexType.SOURCE, $ids.value); }
-    | '-->*' ids=idOneOrMore { $value = new OneSidedRelationship(RelationshipType.CONDITIONS, VertexType.TARGET, $ids.value); }
+    : ids=idOneOrMore '-->*' WS* { $value = new OneSidedRelationship(RelationshipType.CONDITIONS, VertexType.SOURCE, $ids.value); }
+    | '-->*' WS* ids=idOneOrMore { $value = new OneSidedRelationship(RelationshipType.CONDITIONS, VertexType.TARGET, $ids.value); }
     ;
 
 milestones returns [OneSidedRelationship value]
-    : ids=idOneOrMore '--><>' { $value = new OneSidedRelationship(RelationshipType.MILESTONES, VertexType.SOURCE, $ids.value); }
-    | '--><>' ids=idOneOrMore { $value = new OneSidedRelationship(RelationshipType.MILESTONES, VertexType.TARGET, $ids.value); }
+    : ids=idOneOrMore '--><>' WS* { $value = new OneSidedRelationship(RelationshipType.MILESTONES, VertexType.SOURCE, $ids.value); }
+    | '--><>' WS* ids=idOneOrMore { $value = new OneSidedRelationship(RelationshipType.MILESTONES, VertexType.TARGET, $ids.value); }
     ;
 
 responses returns [OneSidedRelationship value]
-    : ids=idOneOrMore '*-->' { $value = new OneSidedRelationship(RelationshipType.RESPONSES, VertexType.SOURCE, $ids.value); }
-    | '*-->' ids=idOneOrMore { $value = new OneSidedRelationship(RelationshipType.RESPONSES, VertexType.TARGET, $ids.value); }
+    : ids=idOneOrMore '*-->' WS* { $value = new OneSidedRelationship(RelationshipType.RESPONSES, VertexType.SOURCE, $ids.value); }
+    | '*-->' WS* ids=idOneOrMore { $value = new OneSidedRelationship(RelationshipType.RESPONSES, VertexType.TARGET, $ids.value); }
     ;
 
 
 includes returns [OneSidedRelationship value]
-    : ids=idOneOrMore '-->+' { $value = new OneSidedRelationship(RelationshipType.INCLUDES, VertexType.SOURCE, $ids.value); }
-    | '-->+' ids=idOneOrMore { $value = new OneSidedRelationship(RelationshipType.INCLUDES, VertexType.TARGET, $ids.value); }
+    : ids=idOneOrMore '-->+' WS* { $value = new OneSidedRelationship(RelationshipType.INCLUDES, VertexType.SOURCE, $ids.value); }
+    | '-->+' WS* ids=idOneOrMore { $value = new OneSidedRelationship(RelationshipType.INCLUDES, VertexType.TARGET, $ids.value); }
     ;
 
 
 excludes returns [OneSidedRelationship value]
-    : ids=idOneOrMore '-->%' { $value = new OneSidedRelationship(RelationshipType.EXCLUDES, VertexType.SOURCE, $ids.value); }
-    | '-->%' ids=idOneOrMore { $value = new OneSidedRelationship(RelationshipType.EXCLUDES, VertexType.TARGET, $ids.value); }
+    : ids=idOneOrMore '-->%' WS* { $value = new OneSidedRelationship(RelationshipType.EXCLUDES, VertexType.SOURCE, $ids.value); }
+    | '-->%' WS* ids=idOneOrMore { $value = new OneSidedRelationship(RelationshipType.EXCLUDES, VertexType.TARGET, $ids.value); }
     ;
 
 eventLabel returns [String value]
-    : '<' ID '>' { $value = $ID.text; }
+    : '<' WS* ID WS* '>' WS* { $value = $ID.text; }
     ;
 
 idOneOrMore returns [List<String> value]
 @init {
     $value = new ArrayList<String>();
 }
-    : ID { $value.add($ID.text); }
-    | '(' ID i=idSeq ')' { $value.add($ID.text); $value.addAll($i.value); }
+    : ID WS* { $value.add($ID.text); }
+    | '(' WS* ID WS* i=idSeq ')' WS* { $value.add($ID.text); $value.addAll($i.value); }
     ;
 
 idSeq returns [List<String> value]
 @init {
     $value = new ArrayList<String>();
 }
-    : ',' ID is=idSeq { $value.add($ID.text); $value.addAll($is.value); }
-    | // Epsilon
+    : ',' WS* ID WS* is=idSeq { $value.add($ID.text); $value.addAll($is.value); }
+    | WS* // Epsilon
     ;
 
 
-
-ONEorZERO: '0' | '1';
+ONEorZERO: '0' | '1' ;
 ID: (CHAR|INT)+ ;
 CHAR:  ('a'..'z'|'A'..'Z')+ ;
 INT :   '0'..'9'+ ;
 NEWLINE:'\r'? '\n' ;
-WS  :   (' '|'\t'|NEWLINE)+ ;
+WS  :   (' '|'\t') ;
