@@ -3,5 +3,5 @@ visualizer and the user. It consists of the following components: The user as
 the actor and the DCR Graph visualizer as the instance. The user represents a
 person interacting with the visualizer which happens through the command line.
 The visualizer takes as an arguement a file with the diagram explained in
-proper grammar and responds with the creation of a visualized graph in .pdf 
+proper grammar and responds with the creation of a visualized graph in .png 
 form.
