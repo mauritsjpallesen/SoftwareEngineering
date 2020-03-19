@@ -1,0 +1,55 @@
+According to our team's opinion and our requirements elicitation in section 4,
+we were able to deliver a minimum working product. We were not able to satisfy 
+every requirement exactly the way it was requested by the client and in some 
+cases we took some initiatives and opted for the second-best solution which 
+we thought would satisfy the client and maintain the goals and usability of 
+what our vision of the end product is.
+
+Overall we managed to satisfy all the minimum functional requirements but did 
+not have time to implement a GUI where the user can edit and correct a graph.
+The constraint we had on building the code in Java was also satisfied. When it
+comes down to the non-functional requirements we are going to go into detail on the requirements that were not satisfied and how we dealt with them. 
+
+The main non-functional requirement we didn't satisfy is the output of the visualizer. The requested output was a scalable .pdf created with vector
+graphics, that task proved to be quite tricky and time-consuming so after a 
+team meeting, we decided that we had to change our course of action. The result was
+that our delivered product's output is a .png created with pixel graphics. 
+Even though we realize that this actually decreases the possible scalability 
+of the produced graph by a lot, we had to make this choice or else we would run
+the risk of missing the submission deadline and have no working end product at 
+all.
+
+...
+
+(One of these will be put after the final client meeting)
+
+After a final meeting with the client, our product was accepted by him proving that the initiatives we took when we came across a problem that we
+could not solve were accurate and well thought. The client also claimed A-B-C...
+
+After a final meeting with the client, we were surprised that our product was not actually accepted. The client claimed A-B-C....
+This proves that some of the initiatives we took on solving some of the 
+problems we faced were not in the correct direction.
+
+...
+
+The lessons we learned included a lot about Software Engineering, Team and 
+Project Coordination along with some new technologies but were not limited to just those. This was the first time, for every member of our team, working with such a big team. We have experienced first hand that communication and
+management tools are incredibly important in order for any team to work efficiently.
+
+Our main communication tool was Discord and our management tool was Github's
+project management tool along with its repository for code, text and diagram 
+management.
+
+We decided it was best to divide the workload and responsibilities for the group's members. Everyone mainly focused on their assigned roles but still
+got a say on every decision made inside the project as well as helping other
+roles in the completion of their duties. All in all the roles were not strict
+and we believe this has benefited the team as a whole since everyone 
+contributed to most aspects of the product.
+
+Furthermore, the requirement elicitation and analysis phase were a team effort
+in which every member took part and agreed on the final versions. To conclude
+with, we found that using the waterfall methodology was the most efficient in
+our current project. Even with all the advantages of other methodologies like 
+SCRUM, due to the nature of the course and the project, the ordering of the 
+lectures and the reading material it made much more sense to adopt the 
+waterfall methodology
