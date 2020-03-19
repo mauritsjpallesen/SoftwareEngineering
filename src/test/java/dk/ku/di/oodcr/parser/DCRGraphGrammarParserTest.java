@@ -117,29 +117,59 @@ class DCRGraphGrammarParserTest {
         Assertions.assertEquals(5,rels.size());
     }
 
-    /*
-    @Test
-    void relationship() {
-    }
-
     @Test
     void conditions() {
+        DCRGraphGrammarParser parser = setupParser(
+                "-->*e3\n"
+                 );
+        OneSidedRelationship rel = parser.relationship().value;
+
+        Assertions.assertEquals(RelationshipType.CONDITIONS, rel.getRelationshipType());
     }
 
     @Test
     void milestones() {
+        DCRGraphGrammarParser parser = setupParser(
+                "--><>e3\n"
+                );
+        OneSidedRelationship rel = parser.relationship().value;
+
+        Assertions.assertEquals(RelationshipType.MILESTONES, rel.getRelationshipType());
     }
 
     @Test
     void responses() {
+        DCRGraphGrammarParser parser = setupParser(
+                "*-->e3\n"
+                );
+        OneSidedRelationship rel = parser.relationship().value;
+
+        Assertions.assertEquals(RelationshipType.RESPONSES, rel.getRelationshipType());
     }
 
     @Test
     void includes() {
+        DCRGraphGrammarParser parser = setupParser(
+                "-->+e3\n"
+                );
+        OneSidedRelationship rel = parser.relationship().value;
+
+        Assertions.assertEquals(RelationshipType.INCLUDES, rel.getRelationshipType());
     }
 
     @Test
     void excludes() {
+        DCRGraphGrammarParser parser = setupParser(
+                "-->%e3\n"
+                );
+        OneSidedRelationship rel = parser.relationship().value;
+
+        Assertions.assertEquals(RelationshipType.EXCLUDES, rel.getRelationshipType());
+    }
+
+    /*
+    @Test
+    void relationship() {
     }
 
     @Test
