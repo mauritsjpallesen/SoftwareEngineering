@@ -1,9 +1,13 @@
 import DCRGraphVis.ImageType;
 import DCRGraphVis.LayoutAlgorithms.FRLayoutAlgorithm;
 import DCRGraphVis.Visualizer;
-import Parser.InputFileParser;
+import Parser.DCRGraphGrammarLexer;
+import Parser.DCRGraphGrammarParser;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
 
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public class Main {
 
@@ -14,16 +18,16 @@ public class Main {
             System.out.println("\t output format:\t\t -jpg -png. Defaults to png.");
         }
 
-        var parser = new InputFileParser();
-        var dcrGraph = parser.parse("");
-
         var layoutAlg = new FRLayoutAlgorithm();
         var visualizer = new Visualizer(layoutAlg);
 
         var requestedImageType = getImageTypeFromArguments(args);
         try {
-            var fileNameWithOutExt = args[args.length - 1].replaceFirst("[.][^.]+$", "");
-            visualizer.GenerateImage(dcrGraph, fileNameWithOutExt + "_DCRGraphVis." + requestedImageType.toString(), requestedImageType);
+            var graphFilePath = args[args.length - 1];
+            var actualParser = setupParser(graphFilePath);
+            var fileNameWithOutExt = graphFilePath.replaceFirst("[.][^.]+$", "");
+            var graph = actualParser.graph().value;
+            visualizer.GenerateImage(graph, fileNameWithOutExt + "_DCRGraphVis." + requestedImageType.toString(), requestedImageType);
         } catch (IOException ioException) {
             System.out.println("An unexpected error occurred: \n " + ioException.getMessage() + "\n" + ioException.getStackTrace());
         }
@@ -39,5 +43,25 @@ public class Main {
             }
 
         return ImageType.PNG;
+    }
+
+    private static DCRGraphGrammarParser setupParser(String filePathToParse) {
+
+        DCRGraphGrammarLexer lexer = null;
+
+        try {
+            var inputStream = new FileInputStream(filePathToParse);
+            lexer = new DCRGraphGrammarLexer(CharStreams.fromStream(inputStream, StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+        DCRGraphGrammarParser parser = new DCRGraphGrammarParser(tokens);
+
+        parser.setInputStream(new CommonTokenStream(lexer));
+
+        return parser;
     }
 }
