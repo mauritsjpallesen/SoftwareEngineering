@@ -1,10 +1,11 @@
-package test.java.dk.ku.di.oodcr.parser;
+package dk.ku.di.oodcr.parser;
 
 import Parser.DCRGraphGrammarLexer;
 import Parser.DCRGraphGrammarParser;
 import Parser.OneSidedRelationship;
 import dk.ku.di.oodcr.DCRGraph;
 import dk.ku.di.oodcr.Event;
+import dk.ku.di.oodcr.RelationshipType;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.jupiter.api.Assertions;
@@ -36,15 +37,6 @@ class DCRGraphGrammarParserTest {
         parser.setInputStream(new CommonTokenStream(lexer));
 
         return parser;
-    }
-
-    @Test
-    void emptyGraphTest() {
-        DCRGraphGrammarParser parser = setupParser("");
-
-        DCRGraph graph = parser.graph().value;
-
-        Assertions.assertEquals(0, graph.events.size());
     }
 
     @Test
@@ -117,6 +109,62 @@ class DCRGraphGrammarParserTest {
         Assertions.assertEquals(5,rels.size());
     }
 
+    /* TESTING GRAPH SIZES */
+    @Test
+    void emptyGraphTest() {
+        DCRGraphGrammarParser parser = setupParser("");
+
+        DCRGraph graph = parser.graph().value;
+
+        Assertions.assertEquals(0, graph.events.size());
+    }
+
+    @Test
+    void sizeOneGraphTest() {
+        DCRGraphGrammarParser parser = setupParser("e(1,1,0)");
+
+        DCRGraph graph = parser.graph().value;
+
+        Assertions.assertEquals(1, graph.events.size());
+    }
+
+    @Test
+    void sizeFiveGraphTest() {
+        DCRGraphGrammarParser parser = setupParser(
+                "e1(1,1,0),\n" +
+                "e2(1,1,0),\n" +
+                "e3(1,1,0),\n" +
+                "e4(1,1,0),\n" +
+                "e5(1,1,0)\n"
+                );
+
+        DCRGraph graph = parser.graph().value;
+
+        Assertions.assertEquals(5, graph.events.size());
+    }
+
+    @Test
+    void sizeTenGraphTest() {
+        DCRGraphGrammarParser parser = setupParser(
+                "e1(1,1,0),\n" +
+                "e2(1,1,0),\n" +
+                "e3(1,1,0),\n" +
+                "e4(1,1,0),\n" +
+                "e5(1,1,0),\n" +
+                "e6(1,1,0),\n" +
+                "e7(1,1,0),\n" +
+                "e8(1,1,0),\n" +
+                "e9(1,1,0),\n" +
+                "e10(1,1,0)\n"
+                );
+
+        DCRGraph graph = parser.graph().value;
+
+        Assertions.assertEquals(10, graph.events.size());
+    }
+
+    /* TESTING RELATIONS */
+
     @Test
     void conditions() {
         DCRGraphGrammarParser parser = setupParser(
@@ -131,7 +179,7 @@ class DCRGraphGrammarParserTest {
     void milestones() {
         DCRGraphGrammarParser parser = setupParser(
                 "--><>e3\n"
-                );
+        );
         OneSidedRelationship rel = parser.relationship().value;
 
         Assertions.assertEquals(RelationshipType.MILESTONES, rel.getRelationshipType());
@@ -141,7 +189,7 @@ class DCRGraphGrammarParserTest {
     void responses() {
         DCRGraphGrammarParser parser = setupParser(
                 "*-->e3\n"
-                );
+        );
         OneSidedRelationship rel = parser.relationship().value;
 
         Assertions.assertEquals(RelationshipType.RESPONSES, rel.getRelationshipType());
@@ -151,7 +199,7 @@ class DCRGraphGrammarParserTest {
     void includes() {
         DCRGraphGrammarParser parser = setupParser(
                 "-->+e3\n"
-                );
+        );
         OneSidedRelationship rel = parser.relationship().value;
 
         Assertions.assertEquals(RelationshipType.INCLUDES, rel.getRelationshipType());
@@ -161,7 +209,7 @@ class DCRGraphGrammarParserTest {
     void excludes() {
         DCRGraphGrammarParser parser = setupParser(
                 "-->%e3\n"
-                );
+        );
         OneSidedRelationship rel = parser.relationship().value;
 
         Assertions.assertEquals(RelationshipType.EXCLUDES, rel.getRelationshipType());
