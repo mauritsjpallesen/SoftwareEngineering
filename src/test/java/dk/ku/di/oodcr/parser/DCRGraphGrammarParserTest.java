@@ -38,25 +38,7 @@ class DCRGraphGrammarParserTest {
 
         return parser;
     }
-
-    @Test
-    void oneSimpleEventGraphTest() {
-        DCRGraphGrammarParser parser = setupParser("e(1,1,0)");
-
-        DCRGraph graph = parser.graph().value;
-
-        Assertions.assertEquals(1, graph.events.size());
-    }
-
-    @Test
-    void oneGraphTest() {
-        DCRGraphGrammarParser parser = setupParser("e(1,1,0)");
-
-        DCRGraph graph = parser.graph().value;
-
-        Assertions.assertEquals(1, graph.events.size());
-    }
-
+    
     @Test
     void graphTest() {
         DCRGraphGrammarParser parser = setupParser("e1(0,1,0),\n" +
@@ -78,38 +60,8 @@ class DCRGraphGrammarParserTest {
         // TODO test the relationships
     }
 
-    @Test
-    void eventLabelTest() {
-        DCRGraphGrammarParser parser = setupParser("e2<A>(0,0,0)");
+    /* TESTING GRAPH EVENT SIZES */
 
-        Event event = parser.event().value;
-
-        Assertions.assertEquals("e2",event.name);
-        Assertions.assertEquals("A",event.label);
-
-        Assertions.assertEquals(false,event.marking.pending);
-        Assertions.assertEquals(false,event.marking.included);
-        Assertions.assertEquals(false,event.marking.executed);
-
-    }
-
-    @Test
-    void relationshipsTest() {
-        DCRGraphGrammarParser parser = setupParser(
-                "*-->e3\n" +
-                "-->+e2\n" +
-                "e1-->*\n" +
-                "-->%(e4,e2)\n" +
-                "-->+e1\n"
-                );
-
-
-        List<OneSidedRelationship> rels = parser.relationships().value;
-
-        Assertions.assertEquals(5,rels.size());
-    }
-
-    /* TESTING GRAPH SIZES */
     @Test
     void emptyGraphTest() {
         DCRGraphGrammarParser parser = setupParser("");
@@ -163,7 +115,87 @@ class DCRGraphGrammarParserTest {
         Assertions.assertEquals(10, graph.events.size());
     }
 
+    /* TESTING EVENT RELATIONS SIZE */
+
+    @Test
+    void relationshipsSizeZeroTest() {
+        DCRGraphGrammarParser parser = setupParser("");
+
+        List<OneSidedRelationship> rels = parser.relationships().value;
+
+        Assertions.assertEquals(0,rels.size());
+    }
+
+    @Test
+    void relationshipsSizeOneTest() {
+        DCRGraphGrammarParser parser = setupParser(
+                "*-->e3\n"
+                );
+
+        List<OneSidedRelationship> rels = parser.relationships().value;
+
+        Assertions.assertEquals(1,rels.size());
+    }
+
+    @Test
+    void relationshipsSizeFiveTest() {
+        DCRGraphGrammarParser parser = setupParser(
+                "*-->e3\n" +
+                "-->+e2\n" +
+                "e1-->*\n" +
+                "-->%(e4,e2)\n" +
+                "-->+e1\n"
+                );
+
+        List<OneSidedRelationship> rels = parser.relationships().value;
+
+        Assertions.assertEquals(5,rels.size());
+    }
+
+    @Test
+    void relationshipsSizeTenTest() {
+        DCRGraphGrammarParser parser = setupParser(
+                "*-->e3\n" +
+                "-->+e2\n" +
+                "e1-->*\n" +
+                "-->%(e4,e2)\n" +
+                "-->+e1\n" +
+                "*-->e3\n" +
+                "-->+e2\n" +
+                "e1-->*\n" +
+                "-->%(e4,e2)\n" +
+                "-->+e1\n"
+                );
+
+        List<OneSidedRelationship> rels = parser.relationships().value;
+
+        Assertions.assertEquals(10,rels.size());
+    }
+
+    /* TESTING EVENT NAME */
+
+    @Test
+    void eventNameTest() {
+        DCRGraphGrammarParser parser = setupParser("e10(0,0,0)");
+
+        Event event = parser.event().value;
+
+        Assertions.assertEquals("e10",event.name);
+    }
+
+    /* TESTING EVENT LABEL */
+
+    @Test
+    void eventLabelTest() {
+        DCRGraphGrammarParser parser = setupParser("e<Label>(0,0,0)");
+
+        Event event = parser.event().value;
+
+        Assertions.assertEquals("Label",event.label);
+    }
+
     /* TESTING EVENT MARKINGS */
+
     @Test
     void eventMarkingsTest000() {
         DCRGraphGrammarParser parser = setupParser("e(0,0,0)");
@@ -268,7 +300,7 @@ class DCRGraphGrammarParserTest {
     void milestones() {
         DCRGraphGrammarParser parser = setupParser(
                 "--><>e3\n"
-        );
+                );
         OneSidedRelationship rel = parser.relationship().value;
 
         Assertions.assertEquals(RelationshipType.MILESTONES, rel.getRelationshipType());
@@ -278,7 +310,7 @@ class DCRGraphGrammarParserTest {
     void responses() {
         DCRGraphGrammarParser parser = setupParser(
                 "*-->e3\n"
-        );
+                );
         OneSidedRelationship rel = parser.relationship().value;
 
         Assertions.assertEquals(RelationshipType.RESPONSES, rel.getRelationshipType());
@@ -288,7 +320,7 @@ class DCRGraphGrammarParserTest {
     void includes() {
         DCRGraphGrammarParser parser = setupParser(
                 "-->+e3\n"
-        );
+                );
         OneSidedRelationship rel = parser.relationship().value;
 
         Assertions.assertEquals(RelationshipType.INCLUDES, rel.getRelationshipType());
@@ -298,7 +330,7 @@ class DCRGraphGrammarParserTest {
     void excludes() {
         DCRGraphGrammarParser parser = setupParser(
                 "-->%e3\n"
-        );
+                );
         OneSidedRelationship rel = parser.relationship().value;
 
         Assertions.assertEquals(RelationshipType.EXCLUDES, rel.getRelationshipType());
