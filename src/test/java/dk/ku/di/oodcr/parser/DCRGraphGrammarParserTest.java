@@ -163,6 +163,95 @@ class DCRGraphGrammarParserTest {
         Assertions.assertEquals(10, graph.events.size());
     }
 
+    /* TESTING EVENT MARKINGS */
+    @Test
+    void eventMarkingsTest000() {
+        DCRGraphGrammarParser parser = setupParser("e(0,0,0)");
+
+        Event event = parser.event().value;
+
+        Assertions.assertEquals(false,event.marking.executed);
+        Assertions.assertEquals(false,event.marking.included);
+        Assertions.assertEquals(false,event.marking.pending);
+    }
+
+    @Test
+    void eventMarkingsTest001() {
+        DCRGraphGrammarParser parser = setupParser("e(0,0,1)");
+
+        Event event = parser.event().value;
+
+        Assertions.assertEquals(false,event.marking.executed);
+        Assertions.assertEquals(false,event.marking.included);
+        Assertions.assertEquals(true,event.marking.pending);
+    }
+
+    @Test
+    void eventMarkingsTest011() {
+        DCRGraphGrammarParser parser = setupParser("e(0,1,1)");
+
+        Event event = parser.event().value;
+
+        Assertions.assertEquals(false,event.marking.executed);
+        Assertions.assertEquals(true,event.marking.included);
+        Assertions.assertEquals(true,event.marking.pending);
+    }
+
+    @Test
+    void eventMarkingsTest111() {
+        DCRGraphGrammarParser parser = setupParser("e(1,1,1)");
+
+        Event event = parser.event().value;
+
+        Assertions.assertEquals(true,event.marking.executed);
+        Assertions.assertEquals(true,event.marking.included);
+        Assertions.assertEquals(true,event.marking.pending);
+    }
+
+    @Test
+    void eventMarkingsTest010() {
+        DCRGraphGrammarParser parser = setupParser("e(0,1,0)");
+
+        Event event = parser.event().value;
+
+        Assertions.assertEquals(false,event.marking.executed);
+        Assertions.assertEquals(true,event.marking.included);
+        Assertions.assertEquals(false,event.marking.pending);
+    }
+
+    @Test
+    void eventMarkingsTest110() {
+        DCRGraphGrammarParser parser = setupParser("e(1,1,0)");
+
+        Event event = parser.event().value;
+
+        Assertions.assertEquals(true,event.marking.executed);
+        Assertions.assertEquals(true,event.marking.included);
+        Assertions.assertEquals(false,event.marking.pending);
+    }
+
+    @Test
+    void eventMarkingsTest100() {
+        DCRGraphGrammarParser parser = setupParser("e(1,0,0)");
+
+        Event event = parser.event().value;
+
+        Assertions.assertEquals(true,event.marking.executed);
+        Assertions.assertEquals(false,event.marking.included);
+        Assertions.assertEquals(false,event.marking.pending);
+    }
+
+    @Test
+    void eventMarkingsTest101() {
+        DCRGraphGrammarParser parser = setupParser("e(1,0,1)");
+
+        Event event = parser.event().value;
+
+        Assertions.assertEquals(true,event.marking.executed);
+        Assertions.assertEquals(false,event.marking.included);
+        Assertions.assertEquals(true,event.marking.pending);
+    }
+
     /* TESTING RELATIONS */
 
     @Test
