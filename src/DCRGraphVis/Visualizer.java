@@ -37,8 +37,8 @@ public class Visualizer {
         this.layoutAlgorithm = layoutAlgorithm;
 
         try {
-            tickImage = ImageIO.read(new File("src/DCRGraphVis/Images/tick.png"));
-            exclamationMarkImage = ImageIO.read(new File("src/DCRGraphVis/Images/exclamation-mark.png"));
+            tickImage = ImageIO.read(new File("Images/tick.png"));
+            exclamationMarkImage = ImageIO.read(new File("Images/exclamation-mark.png"));
         } catch (IOException e) {
             drawTickImage();
             drawExclamationMarkImage();
