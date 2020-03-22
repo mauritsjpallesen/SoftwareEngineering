@@ -1,11 +1,10 @@
 package dk.ku.di.oodcr.parser;
 
-import DCRGraphVis.ImageType;
-import DCRGraphVis.LayoutAlgorithms.FRLayoutAlgorithm;
-import DCRGraphVis.Visualizer;
+import dk.ku.di.oodcr.graph.DCRGraph;
 
-import dk.ku.di.oodcr.DCRGraph;
-
+import dk.ku.di.oodcr.visualizer.ImageType;
+import dk.ku.di.oodcr.visualizer.Visualizer;
+import dk.ku.di.oodcr.visualizer.layoutalgorithms.FRLayoutAlgorithm;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

@@ -1,9 +1,7 @@
 package dk.ku.di.oodcr.parser;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import dk.ku.di.oodcr.DCRGraph;
-import dk.ku.di.oodcr.Event;
+import dk.ku.di.oodcr.graph.DCRGraph;
+import dk.ku.di.oodcr.graph.Event;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

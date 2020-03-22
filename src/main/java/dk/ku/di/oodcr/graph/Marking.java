@@ -1,4 +1,4 @@
-package dk.ku.di.oodcr;
+package dk.ku.di.oodcr.graph;
 
 public class Marking {
 	
