@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: dk.ku.di.oodcr.parser.OODCRTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.01 s <<< FAILURE! - in dk.ku.di.oodcr.parser.OODCRTest
+dk.ku.di.oodcr.parser.OODCRTest.testScenario1  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException
+	at dk.ku.di.oodcr.parser.OODCRTest.testScenario1(OODCRTest.java:27)
+
+dk.ku.di.oodcr.parser.OODCRTest.testScenario2  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException
+	at dk.ku.di.oodcr.parser.OODCRTest.testScenario2(OODCRTest.java:88)
+

@@ -1,11 +1,11 @@
 package dk.ku.di.oodcr.parser;
 
-import Parser.DCRGraphGrammarLexer;
-import Parser.DCRGraphGrammarParser;
-import Parser.OneSidedRelationship;
-import dk.ku.di.oodcr.DCRGraph;
-import dk.ku.di.oodcr.Event;
-import dk.ku.di.oodcr.RelationshipType;
+import dk.ku.di.oodcr.graph.DCRGraph;
+import dk.ku.di.oodcr.graph.Event;
+import dk.ku.di.oodcr.graph.RelationshipType;
+import dk.ku.di.oodcr.parser.dcr.DCRGraphGrammarLexer;
+import dk.ku.di.oodcr.parser.dcr.DCRGraphGrammarParser;
+import dk.ku.di.oodcr.parser.ast.OneSidedRelationship;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.jupiter.api.Assertions;
