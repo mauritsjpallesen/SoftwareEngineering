@@ -1,6 +1,5 @@
 package dk.ku.di.oodcr.visualizer.layoutalgorithms;
 
-
 import dk.ku.di.oodcr.graph.DCRGraph;
 import dk.ku.di.oodcr.graph.Event;
 
@@ -16,6 +15,12 @@ import java.util.*;
 
 public class FRLayoutAlgorithm implements ILayoutAlgorithm {
 
+    /***
+     * @summary
+     * @param graph
+     * @return
+     * @AUTHER MAURITS
+     */
     public ArrayList<Node> generateNodes(DCRGraph graph) {
         var g = new SimpleGraph<Event, DefaultEdge>(DefaultEdge.class);
         var events = graph.events.values();
@@ -27,8 +32,11 @@ public class FRLayoutAlgorithm implements ILayoutAlgorithm {
         for (Event e1: events) {
             var relations = e1.getRelationships().entrySet();
             for (Map.Entry<RelationshipType, HashSet<Event>> entry: relations) {
-                for (Event e2 : entry.getValue())
-                    g.addEdge(e1, e2);
+                for (Event e2 : entry.getValue()) {
+                    var edge = g.getEdge(e2, e1);
+                    if (e1 != e2 && edge == null)
+                        g.addEdge(e1, e2);
+                }
             }
         }
 

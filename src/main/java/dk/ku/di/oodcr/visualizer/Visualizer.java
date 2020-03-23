@@ -9,10 +9,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.RoundRectangle2D;
+import java.awt.geom.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -96,7 +93,7 @@ public class Visualizer {
         ImageIO.write(croppedImage, imageType.toString(), imageFile);
     }
 
-    public void drawNode(Graphics2D g, Node node) {
+    private void drawNode(Graphics2D g, Node node) {
         g.setColor(Color.black);
         if (!node.Event.marking.included)
             g.setStroke(dashed);
@@ -120,17 +117,26 @@ public class Visualizer {
             g.drawImage(exclamationMarkImage, node.X + Node.Width - 5 - exclamationMarkImage.getWidth(null), labelY + labelBounds.height + 5, null);
     }
 
-    public void drawRelation(Graphics2D g, Node nodeFrom, Node nodeTo, RelationshipType relationshipType) {
+    private void drawRelation(Graphics2D g, Node nodeFrom, Node nodeTo, RelationshipType relationshipType) {
         g.setStroke(solidThick);
         setDrawColorAccordingToRelationshipType(g, relationshipType);
 
         var symbolMargin = 15;
         Point symbolPosition = null;
 
+        Arc2D.Float arc = null;
         Line2D line = null;
         var angle = angleBetweenNodes(nodeFrom, nodeTo);
 
-        if (angle <= -150 || angle > 150) {
+        if (nodeFrom == nodeTo){
+            arc = new Arc2D.Float();
+            arc.x = nodeFrom.X + Node.Width / 4;
+            arc.y = nodeFrom.Y + Node.Height;
+            arc.height = 20;
+            arc.extent = 10;
+            arc.start = nodeFrom.X + Node.Width / 4;
+            symbolPosition = new Point(3 * nodeFrom.X + Node.Width / 4, nodeFrom.Y + Node.Height);
+        } else if (angle <= -150 || angle > 150) {
             symbolPosition = new Point(nodeTo.X + Node.Width, nodeTo.Y + Node.Height / 3 + 2 * symbolMargin / 5);
             if (-170 < angle && angle < -150)
                 line = new Line2D.Float(nodeFrom.X, nodeFrom.Y + Node.Height / 3, nodeTo.X + Node.Width + symbolMargin, nodeTo.Y + Node.Height / 3);
@@ -178,34 +184,30 @@ public class Visualizer {
 
         if (relationshipType == RelationshipType.RESPONSES) {
             var symbolRadius = 5;
-            if (angle <= -150 || angle > 150) {
+            if (angle <= -150 || angle > 150)
                 line = new Line2D.Float(nodeFrom.X - symbolRadius, nodeFrom.Y + Node.Height / 3, nodeTo.X + Node.Width + 2, nodeTo.Y + Node.Height / 3);
-                symbolPosition = new Point(-symbolRadius, 0);
-            } else if (-150 <= angle && angle < -120) {
+            else if (-150 <= angle && angle < -120)
                 line = new Line2D.Float(nodeFrom.X + Node.Width / 5, nodeFrom.Y - symbolRadius, nodeTo.X + Node.Width + 2, nodeTo.Y + 4 * Node.Height / 5);
-                symbolPosition = new Point(-symbolRadius, -symbolRadius);
-            } else if (-120 <= angle && angle < -60) {
+            else if (-120 <= angle && angle < -60)
                 line = new Line2D.Float(nodeFrom.X + 2 * Node.Width / 3, nodeFrom.Y - symbolRadius, nodeTo.X + 2 * Node.Width / 3, nodeTo.Y + Node.Height + 2);
-                symbolPosition = new Point(0, -symbolRadius);
-            } else if (-60 <= angle && angle < -30) {
+            else if (-60 <= angle && angle < -30)
                 line = new Line2D.Float(nodeFrom.X + Node.Width + symbolRadius, nodeFrom.Y + Node.Height / 5, nodeTo.X + Node.Width / 5, nodeTo.Y + Node.Height + 2);
-                symbolPosition = new Point(symbolRadius, symbolRadius);
-            } else if (-30 <= angle && angle < 30 ) {
+            else if (-30 <= angle && angle < 30 )
                 line = new Line2D.Float(nodeFrom.X + Node.Width + symbolRadius, nodeFrom.Y + 2 * Node.Height / 3, nodeTo.X - 2, nodeTo.Y + 2 * Node.Height / 3);
-                symbolPosition = new Point(symbolRadius, 0);
-            } else if (30 <= angle && angle < 60 ) {
+            else if (30 <= angle && angle < 60 )
                 line = new Line2D.Float(nodeFrom.X + 4 * Node.Width / 5, nodeFrom.Y + Node.Height + symbolRadius, nodeTo.X - 2, nodeTo.Y + Node.Height / 5);
-                symbolPosition = new Point(symbolRadius, symbolRadius);
-            } else if (60 <= angle && angle < 120 ) {
+            else if (60 <= angle && angle < 120 )
                 line = new Line2D.Float(nodeFrom.X + Node.Width / 3, nodeFrom.Y + Node.Height + symbolRadius, nodeTo.X + Node.Width / 3, nodeTo.Y - 2);
-                symbolPosition = new Point(0, symbolRadius);
-            } else if (120 <= angle && angle <= 150) {
+            else if (120 <= angle && angle <= 150)
                 line = new Line2D.Float(nodeFrom.X - symbolRadius, nodeFrom.Y + 4 * Node.Height / 5 - symbolRadius, nodeTo.X + 4 * Node.Width / 5, nodeTo.Y - 2);
-                symbolPosition = new Point(-symbolRadius, symbolRadius);
-            }
 
             var circle = new Ellipse2D.Double(-symbolRadius, -symbolRadius, 2.0 * symbolRadius, 2.0 * symbolRadius);
-            drawPolygonRelativeToLine(g, line, circle, RelativePosition.Start);
+            if (line != null)
+                drawPolygonRelativeToLine(g, line, circle, RelativePosition.Start);
+            else if (arc != null)
+                drawPolygonRelativeToLine(g, new Line2D.Float(arc.x, arc.y, 0,0), circle, RelativePosition.Start);
+            else
+                throw new NullPointerException("Relation line and arc was never set");
         }
         else {
             var curFont = g.getFont();
@@ -213,11 +215,15 @@ public class Visualizer {
             g.setFont(curFont);
         }
 
-        if (line == null)
-            throw new NullPointerException("Relation line was never set");
-
-        drawPolygonRelativeToLine(g, line, arrowHead, RelativePosition.End);
-        g.draw(line);
+        if (line != null) {
+            drawPolygonRelativeToLine(g, line, arrowHead, RelativePosition.End);
+            g.draw(line);
+        } else if (arc != null) {
+            drawPolygonRelativeToLine(g, new Line2D.Float(arc.x, arc.y, nodeFrom.X + 3 * Node.Width / 4, nodeFrom.Y + Node.Height), arrowHead, RelativePosition.End);
+            g.draw(arc);
+        }
+        else
+            throw new NullPointerException("Relation line and arc was never set");
 
         g.setColor(Color.black);
     }
@@ -241,8 +247,7 @@ public class Visualizer {
         g.setStroke(curStroke);
     }
 
-    private Rectangle getBoundingBoxOfString(Graphics2D g2, String str, int x, int y)
-    {
+    private Rectangle getBoundingBoxOfString(Graphics2D g2, String str, int x, int y) {
         FontRenderContext frc = g2.getFontRenderContext();
         GlyphVector gv = g2.getFont().createGlyphVector(frc, str);
         return gv.getPixelBounds(null, x, y);
