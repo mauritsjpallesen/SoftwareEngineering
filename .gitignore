@@ -72,3 +72,19 @@ fabric.properties
 .idea/
 
 gen/Parser/
+
+target/classes/
+
+target/generated-sources/antlr4/
+
+target/maven-archiver/
+
+target/maven-status/maven-compiler-plugin/compile/default-compile/
+
+target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/
+
+target/surefire-reports/
+
+target/test-classes/dk/ku/di/oodcr/parser/
+
+target/

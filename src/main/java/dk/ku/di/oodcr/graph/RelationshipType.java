@@ -1,5 +1,8 @@
 package dk.ku.di.oodcr.graph;
 
+/***
+ *
+ */
 public enum RelationshipType {
     CONDITIONS("\u23FA"),
     RESPONSES("\u23FA"),
