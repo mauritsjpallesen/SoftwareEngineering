@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class LayoutModel implements LayoutModel2D<Event> {
     private Box2D drawingArea;
-    private HashMap<Event, Point2D> nodes = new HashMap<Event, Point2D>();
+    private HashMap<Event, Point2D> nodes = new HashMap<>();
 
     public LayoutModel(int numberOfEvents) {
         drawingArea = new Box2D(numberOfEvents * (Node.Width + 50), numberOfEvents * (Node.Height + 50));

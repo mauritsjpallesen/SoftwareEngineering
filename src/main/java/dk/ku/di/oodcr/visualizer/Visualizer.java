@@ -105,16 +105,36 @@ public class Visualizer {
 
         var labelX = node.X + 10;
         var labelY = node.Y + 15;
-        var labelBounds = getBoundingBoxOfString(g, formattedLabel, labelX, labelY);
+        var labelHeight = g.getFontMetrics().getHeight() * countOccurrencesInString('\n', formattedLabel);
 
-        g.drawString(formattedLabel, labelX, labelY);
-        g.drawLine(node.X, labelY + labelBounds.height, node.X + Node.Width, labelY + labelBounds.height);
+        drawString(g, formattedLabel, labelX, labelY);
+        g.drawLine(node.X, labelY + labelHeight, node.X + Node.Width, labelY + labelHeight);
 
         if (node.Event.marking.executed)
-            g.drawImage(tickImage, node.X + 5, labelY + labelBounds.height + 5, null);
+            g.drawImage(tickImage, node.X + 5, labelY + labelHeight + 5, null);
 
         if (node.Event.marking.pending)
-            g.drawImage(exclamationMarkImage, node.X + Node.Width - 5 - exclamationMarkImage.getWidth(null), labelY + labelBounds.height + 5, null);
+            g.drawImage(exclamationMarkImage, node.X + Node.Width - 5 - exclamationMarkImage.getWidth(null), labelY + labelHeight + 5, null);
+    }
+
+    int countOccurrencesInString(char c, String str) {
+        int count = 1;
+
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == c) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    void drawString(Graphics g, String text, int x, int y) {
+        int count = 0;
+        for (String line : text.split("\n")) {
+            g.drawString(line, x, y + count * g.getFontMetrics().getHeight());
+            count++;
+        }
     }
 
     private void drawRelation(Graphics2D g, Node nodeFrom, Node nodeTo, RelationshipType relationshipType) {
@@ -132,7 +152,7 @@ public class Visualizer {
             arc = new Arc2D.Float();
             arc.x = nodeFrom.X + Node.Width / 4;
             arc.y = nodeFrom.Y + 3 * Node.Height / 4;
-            arc.height = 20;
+            arc.height = (nodeFrom.Y + Node.Height) - arc.y;
             arc.width = 2 * Node.Width / 4;
             arc.extent = 10;
             arc.start = 45;
@@ -189,7 +209,7 @@ public class Visualizer {
                 arc = new Arc2D.Float();
                 arc.x = nodeFrom.X + Node.Width / 4;
                 arc.y = nodeFrom.Y + 3 * Node.Height / 4;
-                arc.height = 20;
+                arc.height = (nodeFrom.Y + Node.Height) - arc.y;
                 arc.width = 2 * Node.Width / 4;
                 arc.extent = 10;
                 arc.start = 45;

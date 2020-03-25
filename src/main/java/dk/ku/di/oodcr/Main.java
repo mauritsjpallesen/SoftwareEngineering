@@ -9,10 +9,6 @@ import dk.ku.di.oodcr.visualizer.layoutalgorithms.FRLayoutAlgorithm;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.geom.Line2D;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 

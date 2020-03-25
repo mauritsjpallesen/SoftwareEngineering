@@ -6,8 +6,8 @@ import java.util.Objects;
 
 public class Node {
 
-    public static final int Width = 70;
-    public static final int Height = 70;
+    public static final int Width = 100;
+    public static final int Height = 130;
     public int X;
     public int Y;
     public Event Event;
