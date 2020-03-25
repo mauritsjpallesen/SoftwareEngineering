@@ -1,5 +1,4 @@
-// Generated from dk\ku\di\oodcr\parser\dcr\DCRGraphGrammar.g4 by ANTLR 4.8
-package dk.ku.di.oodcr.parser.dcr;
+// Generated from C:/git/SoftwareEngineering/src/main/antlr4/dk/ku/di/oodcr/parser/dcr\DCRGraphGrammar.g4 by ANTLR 4.8
 
 import dk.ku.di.oodcr.graph.*;
 import dk.ku.di.oodcr.parser.ast.*;

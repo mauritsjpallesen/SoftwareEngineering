@@ -153,7 +153,7 @@ idSeq returns [List<String> value]
 
 ONEorZERO: '0' | '1' ;
 ID: (CHAR|INT)+ ;
-CHAR:  ('a'..'z'|'A'..'Z')+ ;
+CHAR:  ('a'..'z'|'A'..'Z'|'_')+ ;
 INT :   '0'..'9'+ ;
 NEWLINE:'\r'? '\n' ;
 WS  :   (' '|'\t') ;

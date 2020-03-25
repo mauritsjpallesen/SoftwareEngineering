@@ -1,5 +1,4 @@
-// Generated from dk\ku\di\oodcr\parser\dcr\DCRGraphGrammar.g4 by ANTLR 4.8
-package dk.ku.di.oodcr.parser.dcr;
+// Generated from C:/git/SoftwareEngineering/src/main/antlr4/dk/ku/di/oodcr/parser/dcr\DCRGraphGrammar.g4 by ANTLR 4.8
 
 import dk.ku.di.oodcr.graph.*;
 import dk.ku.di.oodcr.parser.ast.*;
@@ -136,6 +135,11 @@ public class DCRGraphGrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DCRGraphGrammarListener ) ((DCRGraphGrammarListener)listener).exitGraph(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DCRGraphGrammarVisitor ) return ((DCRGraphGrammarVisitor<? extends T>)visitor).visitGraph(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final GraphContext graph() throws RecognitionException {
@@ -236,6 +240,11 @@ public class DCRGraphGrammarParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DCRGraphGrammarListener ) ((DCRGraphGrammarListener)listener).exitEventz(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DCRGraphGrammarVisitor ) return ((DCRGraphGrammarVisitor<? extends T>)visitor).visitEventz(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -352,6 +361,11 @@ public class DCRGraphGrammarParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DCRGraphGrammarListener ) ((DCRGraphGrammarListener)listener).exitEvent(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DCRGraphGrammarVisitor ) return ((DCRGraphGrammarVisitor<? extends T>)visitor).visitEvent(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -620,6 +634,11 @@ public class DCRGraphGrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DCRGraphGrammarListener ) ((DCRGraphGrammarListener)listener).exitRelationships(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DCRGraphGrammarVisitor ) return ((DCRGraphGrammarVisitor<? extends T>)visitor).visitRelationships(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final RelationshipsContext relationships() throws RecognitionException {
@@ -737,6 +756,11 @@ public class DCRGraphGrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DCRGraphGrammarListener ) ((DCRGraphGrammarListener)listener).exitRelationship(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DCRGraphGrammarVisitor ) return ((DCRGraphGrammarVisitor<? extends T>)visitor).visitRelationship(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final RelationshipContext relationship() throws RecognitionException {
@@ -820,6 +844,11 @@ public class DCRGraphGrammarParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DCRGraphGrammarListener ) ((DCRGraphGrammarListener)listener).exitConditions(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DCRGraphGrammarVisitor ) return ((DCRGraphGrammarVisitor<? extends T>)visitor).visitConditions(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -917,6 +946,11 @@ public class DCRGraphGrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DCRGraphGrammarListener ) ((DCRGraphGrammarListener)listener).exitMilestones(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DCRGraphGrammarVisitor ) return ((DCRGraphGrammarVisitor<? extends T>)visitor).visitMilestones(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final MilestonesContext milestones() throws RecognitionException {
@@ -1012,6 +1046,11 @@ public class DCRGraphGrammarParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DCRGraphGrammarListener ) ((DCRGraphGrammarListener)listener).exitResponses(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DCRGraphGrammarVisitor ) return ((DCRGraphGrammarVisitor<? extends T>)visitor).visitResponses(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1109,6 +1148,11 @@ public class DCRGraphGrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DCRGraphGrammarListener ) ((DCRGraphGrammarListener)listener).exitIncludes(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DCRGraphGrammarVisitor ) return ((DCRGraphGrammarVisitor<? extends T>)visitor).visitIncludes(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final IncludesContext includes() throws RecognitionException {
@@ -1205,6 +1249,11 @@ public class DCRGraphGrammarParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DCRGraphGrammarListener ) ((DCRGraphGrammarListener)listener).exitExcludes(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DCRGraphGrammarVisitor ) return ((DCRGraphGrammarVisitor<? extends T>)visitor).visitExcludes(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ExcludesContext excludes() throws RecognitionException {
@@ -1298,6 +1347,11 @@ public class DCRGraphGrammarParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DCRGraphGrammarListener ) ((DCRGraphGrammarListener)listener).exitEventLabel(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DCRGraphGrammarVisitor ) return ((DCRGraphGrammarVisitor<? extends T>)visitor).visitEventLabel(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1393,6 +1447,11 @@ public class DCRGraphGrammarParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DCRGraphGrammarListener ) ((DCRGraphGrammarListener)listener).exitIdOneOrMore(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DCRGraphGrammarVisitor ) return ((DCRGraphGrammarVisitor<? extends T>)visitor).visitIdOneOrMore(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1526,6 +1585,11 @@ public class DCRGraphGrammarParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DCRGraphGrammarListener ) ((DCRGraphGrammarListener)listener).exitIdSeq(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DCRGraphGrammarVisitor ) return ((DCRGraphGrammarVisitor<? extends T>)visitor).visitIdSeq(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
