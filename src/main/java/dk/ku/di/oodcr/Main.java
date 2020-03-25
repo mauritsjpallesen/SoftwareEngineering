@@ -9,12 +9,16 @@ import dk.ku.di.oodcr.visualizer.layoutalgorithms.FRLayoutAlgorithm;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.geom.Line2D;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         if (args.length < 1) {
             System.out.println("Usage: jar DCRGraphVis [options] <input file>");
             System.out.println("\n Options:");

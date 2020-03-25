@@ -128,14 +128,15 @@ public class Visualizer {
         Line2D line = null;
         var angle = angleBetweenNodes(nodeFrom, nodeTo);
 
-        if (nodeFrom == nodeTo){
+        if (nodeFrom.equals(nodeTo)){
             arc = new Arc2D.Float();
             arc.x = nodeFrom.X + Node.Width / 4;
-            arc.y = nodeFrom.Y + Node.Height;
+            arc.y = nodeFrom.Y + 3 * Node.Height / 4;
             arc.height = 20;
+            arc.width = 2 * Node.Width / 4;
             arc.extent = 10;
-            arc.start = nodeFrom.X + Node.Width / 4;
-            symbolPosition = new Point(3 * nodeFrom.X + Node.Width / 4, nodeFrom.Y + Node.Height);
+            arc.start = 45;
+            symbolPosition = new Point(nodeFrom.X + Node.Width / 4 - symbolMargin / 2, nodeFrom.Y + Node.Height);
         } else if (angle <= -150 || angle > 150) {
             symbolPosition = new Point(nodeTo.X + Node.Width, nodeTo.Y + Node.Height / 3 + 2 * symbolMargin / 5);
             if (-170 < angle && angle < -150)
@@ -184,7 +185,15 @@ public class Visualizer {
 
         if (relationshipType == RelationshipType.RESPONSES) {
             var symbolRadius = 5;
-            if (angle <= -150 || angle > 150)
+            if (nodeFrom.equals(nodeTo)){
+                arc = new Arc2D.Float();
+                arc.x = nodeFrom.X + Node.Width / 4;
+                arc.y = nodeFrom.Y + 3 * Node.Height / 4;
+                arc.height = 20;
+                arc.width = 2 * Node.Width / 4;
+                arc.extent = 10;
+                arc.start = 45;
+            } else if (angle <= -150 || angle > 150)
                 line = new Line2D.Float(nodeFrom.X - symbolRadius, nodeFrom.Y + Node.Height / 3, nodeTo.X + Node.Width + 2, nodeTo.Y + Node.Height / 3);
             else if (-150 <= angle && angle < -120)
                 line = new Line2D.Float(nodeFrom.X + Node.Width / 5, nodeFrom.Y - symbolRadius, nodeTo.X + Node.Width + 2, nodeTo.Y + 4 * Node.Height / 5);
@@ -205,7 +214,7 @@ public class Visualizer {
             if (line != null)
                 drawPolygonRelativeToLine(g, line, circle, RelativePosition.Start);
             else if (arc != null)
-                drawPolygonRelativeToLine(g, new Line2D.Float(arc.x, arc.y, 0,0), circle, RelativePosition.Start);
+                drawPolygonRelativeToLine(g, new Line2D.Float(arc.x, nodeFrom.Y + Node.Height - (int)(circle.height / 2), 0,0), circle, RelativePosition.Start);
             else
                 throw new NullPointerException("Relation line and arc was never set");
         }
@@ -219,8 +228,8 @@ public class Visualizer {
             drawPolygonRelativeToLine(g, line, arrowHead, RelativePosition.End);
             g.draw(line);
         } else if (arc != null) {
-            drawPolygonRelativeToLine(g, new Line2D.Float(arc.x, arc.y, nodeFrom.X + 3 * Node.Width / 4, nodeFrom.Y + Node.Height), arrowHead, RelativePosition.End);
-            g.draw(arc);
+            drawPolygonRelativeToLine(g, new Line2D.Float(nodeFrom.X + 3 * Node.Width / 4, arc.y, nodeFrom.X + 3 * Node.Width / 4, nodeFrom.Y + Node.Height), arrowHead, RelativePosition.End);
+            g.drawArc((int)arc.x, (int)arc.y, (int)arc.width, (int)arc.height, 0, 180);
         }
         else
             throw new NullPointerException("Relation line and arc was never set");

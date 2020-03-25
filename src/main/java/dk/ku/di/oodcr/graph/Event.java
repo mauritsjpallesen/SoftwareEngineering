@@ -2,9 +2,12 @@ package dk.ku.di.oodcr.graph;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Objects;
+import java.util.UUID;
 
 public class Event {
 
+	public UUID id;
 	public String name;
 	public String label;
 	
@@ -14,6 +17,7 @@ public class Event {
 
 	public Event(String n, String l)
 	{
+		id = UUID.randomUUID();
 		name = n;
 		label = l;
 		relationships = new HashMap<>();
@@ -73,5 +77,18 @@ public class Event {
 	public boolean isAccepting()
 	{
 		return (!(marking.pending && marking.included));		
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Event event = (Event) o;
+		return Objects.equals(id, event.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 }
