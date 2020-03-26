@@ -32,12 +32,21 @@ public class Event {
 		return relationships;
 	}
 
+	/**
+	 * Adds new relationship with the event as target and {@code event} being source.
+	 * @param relationshipType type of the newly created relationship.
+	 * @param event target event.
+	 */
 	public void addRelationship(RelationshipType relationshipType, Event event) {
 		relationships.putIfAbsent(relationshipType, new HashSet<>());
 
 		relationships.get(relationshipType).add(event);
 	}
-	
+
+	/**
+	 * Determines if the event is enabled.
+	 * @return {@code true} if event is enabled, {@code false} otherwise.
+	 */
 	public Boolean enabled()
 	{
 		if (!marking.included)
@@ -53,7 +62,10 @@ public class Event {
 		
 		return true;
 	}
-	
+
+	/**
+	 * Executes the event and modify state of every dependent event.
+	 */
 	public void execute()
 	{
 		if(!enabled())
@@ -70,10 +82,13 @@ public class Event {
 
 		for (Event e: relationships.get(RelationshipType.INCLUDES))
 			e.marking.included = true;
-		
-		return;		
+
 	}
 
+	/**
+	 * Determines if the event is in accepting state.
+	 * @return {@code true} if event is accepting, {@code false} otherwise.
+	 */
 	public boolean isAccepting()
 	{
 		return (!(marking.pending && marking.included));		
