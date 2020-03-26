@@ -10,7 +10,7 @@ import dk.ku.di.oodcr.visualizer.LayoutModel;
 import dk.ku.di.oodcr.visualizer.Node;
 import org.jgrapht.alg.drawing.model.Point2D;
 import org.jgrapht.graph.*;
-import  org.jgrapht.alg.drawing.*;
+import org.jgrapht.alg.drawing.*;
 import java.util.*;
 
 public class FRLayoutAlgorithm implements ILayoutAlgorithm {
