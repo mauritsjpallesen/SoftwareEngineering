@@ -9,6 +9,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+/***
+ * @summary Implements the LayoutModel2D interface from the jgrapht library.
+ *          The class keeps track of events and their corresponding points
+ *          which can be changed at any time by the layout algorithm.
+ */
 public class LayoutModel implements LayoutModel2D<Event> {
     private Box2D drawingArea;
     private HashMap<Event, Point2D> nodes = new HashMap<>();

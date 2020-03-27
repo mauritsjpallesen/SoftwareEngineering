@@ -5,6 +5,9 @@ import dk.ku.di.oodcr.visualizer.Node;
 
 import java.util.ArrayList;
 
+/***
+ * @summary An interface describing the only public method a layout algorithm class should have.
+ */
 public interface ILayoutAlgorithm {
     ArrayList<Node> generateNodes(DCRGraph dcrGraph);
 }

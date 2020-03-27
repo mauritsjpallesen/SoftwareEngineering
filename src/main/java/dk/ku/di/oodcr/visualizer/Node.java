@@ -4,6 +4,9 @@ import dk.ku.di.oodcr.graph.Event;
 
 import java.util.Objects;
 
+/***
+ * @summary This class is a simple extension of the event class used to draw the actual events.
+ */
 public class Node {
 
     public static final int Width = 100;
@@ -21,6 +24,12 @@ public class Node {
         Event = event;
     }
 
+    /***
+     * @summary Equals returns true if the reference of the node is the same or if the reference of the event it
+     *          holds is the same reference as the other object (if the other object is also a Node)
+     * @param The object to compare to.
+     * @return boolean
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

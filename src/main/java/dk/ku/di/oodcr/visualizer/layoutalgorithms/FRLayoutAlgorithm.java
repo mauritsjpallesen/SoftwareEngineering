@@ -13,12 +13,16 @@ import org.jgrapht.graph.*;
 import org.jgrapht.alg.drawing.*;
 import java.util.*;
 
+/***
+ * @summary This class uses the Fruchterman Reingold algorithm from the jgrapht library for laying out graphs.
+ * @AUTHER MAURITS
+ */
 public class FRLayoutAlgorithm implements ILayoutAlgorithm {
 
     /***
-     * @summary
-     * @param graph
-     * @return
+     * @summary Generates x and y coordinates for nodes, such that events are layed out nicely when drawn.
+     * @param The DCR graph that should be layed out nicely
+     * @return A list of nodes
      * @AUTHER MAURITS
      */
     public ArrayList<Node> generateNodes(DCRGraph graph) {
